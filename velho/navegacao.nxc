@@ -1,0 +1,63 @@
+//Codigo Master
+
+//Definicao dos Estados
+#define MODULOCENTRAL 0		//Quando o robo se encontra no modulo central
+#define NAVEGACAO 1			//Quando se encontra no labirinto ou no buraco
+#define VOLTA 2				//Voltando para o modulo central
+
+//Variaveis globais
+int estado;					//Estado da maquina de estados
+
+
+//Definir comunicao bluetooth
+
+//Funcao que checa obstaculos
+//Funcao que sai de obstaculos
+
+
+//Caminha para a frente
+void caminha()
+{
+	while(FUNCAO_A_SER_DEFINIDA)
+	{
+				
+	}
+
+}
+
+//Funcao referente ao primeiro estado
+void moduloCentral()
+{
+	//caminhar reto
+	//Checa o chao para ver se ja esta em outro modulo
+	//Checa se existe mensagem do slave
+	
+
+}
+
+task main() {
+
+	estado = 0;
+
+	 while(true){
+ 
+	  switch(estado)
+	  {
+  		case MODULOCENTRAL:
+  		{
+  		
+  		}
+  		
+  		case NAVEGACAO:
+  		{
+  		}
+  		
+  		case VOLTA:
+  		{
+  		}
+  		
+  		}//switch estado		
+ 	}//while()
+
+	
+}//task main	
