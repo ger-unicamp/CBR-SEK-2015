@@ -1,27 +1,113 @@
 //Codigo Master
 
+//Opcao de estrategia:
+/*Robo A (o que vai entrar em todos os modulos) algoritmo para percorrer todos
+  os modulos:
+  anda distancia fixa pra frente (sair do pequeno modulo onde o robo inicia)
+  
+  vira a esquerda (o lado e arbitrario , entretanto mudando o sentido que o robo
+  vai circular mudaremos as proximas direçoes para virar)
+  
+  acelera ate os 2 sensores de toque serem ativados , entao vire a direita
+  
+  quando o sensor ultrasonico parar de detectar parede "tenta entrar"(verifica 
+  a linha preta no chao ou nao)
+  
+  ao sair do modulo != do central :
+  acelera distancia fixa , retorna distancia fixa de re , vira 180 graus
+  e acha novamente a linha preta (ou seja achou a entrada dnv)
+  
+  volta a percorrer o modulo inicial virando para direita.
+  */
+
 //Definicao dos Estados
 #define MODULOCENTRAL 0		//Quando o robo se encontra no modulo central
 #define NAVEGACAO 1			//Quando se encontra no labirinto ou no buraco
 #define VOLTA 2				//Voltando para o modulo central
 
+//Definicao de comunicacao
+#define BT_CONN 1			//Canal de comunicacao Bluetooth
+#define INBOX 1				//Caixa de mensagens recebidas
+#define OUTBOX 5			//Caixa de mensagens enviadas
+
+//Definicao de mensagens
+#define MSG_SENSOR_DIR 0
+#define MSG_SENSOR_ESQ 1
+
+//Definicao de Sensores
+#define SENSOR_COR_DIR SENSOR_1
+#define SENSOR_COR_ESQ SENSOR_2
+
+typedef struct Sensor {
+	int cor_esq;
+	int cor_dir;
+	
+	int som_esq;
+	int som_dir;
+	
+	bool toque_esq;
+	bool toque_dir;
+} Sensor;
+
 //Variaveis globais
 int estado;					//Estado da maquina de estados
-
+Sensor sensor;
 
 //Definir comunicao bluetooth
+sub BTCheck(int conn)
+{
+	//Checa comunicação bluetooth
+	if(!BluetoothStatus(conn)==NO_ERR)
+	{
+		TextOut(5,LCD_LINE,"ERROR BT");
+		Wait(1000);
+		Stop(true);
+	}
+}
 
 //Funcao que checa obstaculos
+void atualizaSensores()
+{
+	SetSensorColorRed(IN_1);
+	SetSensorColorRed(IN_2);
+
+	int input = 0;
+
+	//Atualiza sensor de toque (Bluetooth)
+	//Sensor de toque direito
+	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
+	Wait(10);
+	ReceiveRemoteNumber(INBOX, true, input)
+	if(input)
+		sensor.toque_dir = true;
+	else
+		sensor.toque_dir = false;
+	
+	//Sensor de toque esquerdo
+	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
+	Wait(10);
+	ReceiveRemoteNumber(INBOX, true, input)
+	if(input)
+		sensor.toque_esq = true;
+	else
+		sensor.toque_esq = false;
+	
+	//Atualiza sensores de cor
+	sensor.cor_dir = SENSOR_COR_DIR;
+	sensor.cor_esq = SENSOR_COR_ESQ;
+	
+	//Atualiza sensores ultrassonicos 
+	sensor.som_dir = SensorUS(IN_3);
+	sensor.som_esq = SensorUS(IN_4);
+
+}
+
 //Funcao que sai de obstaculos
 
 
-//Caminha para a frente
-void caminha()
+//Modulo Central
+void central()
 {
-	while(FUNCAO_A_SER_DEFINIDA)
-	{
-				
-	}
 
 }
 
