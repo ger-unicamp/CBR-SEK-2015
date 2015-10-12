@@ -38,6 +38,13 @@
 #define SENSOR_COR_DIR SENSOR_1
 #define SENSOR_COR_ESQ SENSOR_2
 
+//Definicao de navegacao
+#define FRENTE 1
+#define TRAS 0
+#define ESQUERDA 1
+#define DIREITA 0
+#define ANGULO_CURVA 0		//Fazer medicao
+
 typedef struct Sensor {
 	int cor_esq;
 	int cor_dir;
@@ -53,6 +60,30 @@ typedef struct Sensor {
 int estado;					//Estado da maquina de estados
 Sensor sensor;
 
+//-------------------  Verificar se as portas estão corretas. ----------------
+
+//Move o robo em linha reta para frente ou para tras.
+void andar(int sentido, int potencia, int tempo) {
+	if(sentido == FRENTE) {
+		onFwd(OUT_AB, potencia);
+		Wait(tempo);
+	}
+	else {
+		OnRev(OUT_AB, potencia);
+		Wait(tempo);
+	}
+}
+
+//Gira o robo em 90 graus. 
+void girar(int sentido, int potencia) {
+	if(sentido == ESQUERDA)
+		RotateMotor(OUT_A, potencia, ANGULO_CURVA);
+	else
+		RotateMotor(OUT_B, potencia, ANGULO_CURVA);
+}
+
+//--------------------------------------------------------------------------
+
 //Definir comunicao bluetooth
 sub BTCheck(int conn)
 {
@@ -66,6 +97,7 @@ sub BTCheck(int conn)
 }
 
 //Funcao que checa obstaculos
+//Verificar viabilizacao dessa funcao ser uma task
 void atualizaSensores()
 {
 	SetSensorColorRed(IN_1);
@@ -77,7 +109,7 @@ void atualizaSensores()
 	//Sensor de toque direito
 	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
 	Wait(10);
-	ReceiveRemoteNumber(INBOX, true, input)
+	ReceiveRemoteNumber(INBOX, true, input);
 	if(input)
 		sensor.toque_dir = true;
 	else
@@ -114,6 +146,7 @@ void central()
 //Funcao referente ao primeiro estado
 void moduloCentral()
 {
+
 	//caminhar reto
 	//Checa o chao para ver se ja esta em outro modulo
 	//Checa se existe mensagem do slave
@@ -123,26 +156,28 @@ void moduloCentral()
 
 task main() {
 
+	//Precedes(atualizaSensores);
+
 	estado = 0;
 
-	 while(true){
+	while(true){
  
-	  switch(estado)
-	  {
-  		case MODULOCENTRAL:
-  		{
-  		
-  		}
-  		
-  		case NAVEGACAO:
-  		{
-  		}
-  		
-  		case VOLTA:
-  		{
-  		}
-  		
-  		}//switch estado		
+	 	switch(estado)
+		{
+	  		case MODULOCENTRAL:
+	  			
+	  			break;
+	  		
+	  		case NAVEGACAO:
+	  		
+	  			break;
+	  		
+	  		case VOLTA:
+	  		
+	  			break;
+	  		
+	  	}//switch estado		
+ 	
  	}//while()
 
 	

@@ -1,0 +1,47 @@
+//Definicao de comunicacao
+#define BT_CONN 1			//Canal de comunicacao Bluetooth
+#define INBOX 5				//Caixa de mensagens recebidas
+#define OUTBOX 1			//Caixa de mensagens enviadas
+
+//Definicao de mensagens
+#define MSG_SENSOR_DIR 0
+#define MSG_SENSOR_ESQ 1
+
+//Definicao de sensores (VERIFICAR ESSA CORRESPONDENCIA)
+#define SENSOR_TOQ_ESQ SENSOR_1
+#define SENSOR_TOQ_DIR SENSOR_2
+
+sub BTCheck(int conn)
+{
+	//Checa comunicação bluetooth
+	if(!BluetoothStatus(conn)==NO_ERR)
+	{
+		TextOut(5,LCD_LINE,"ERROR BT");
+		Wait(1000);
+		Stop(true);
+	}
+}
+
+/* Recebe uma numero (mensagem) correspondente a um dado requerido e manda esse dado
+ * por bluetooth. */
+task bluetooth() {
+
+	int msg;
+
+	BTCheck(BT_CONN);
+	ReceiveRemoteNumber(INBOX, true, msg);
+	if(msg == MSG_SENSOR_ESQ)
+		SendRemoteNumber(BT_CONN, OUTBOX, SENSOR_TOQ_ESQ);
+	else if(MSG_SENSOR_DIR)
+		SendRemoteNumber(BT_CONN, OUTBOX, SENSOR_TOQ_DIR);
+
+}
+
+task main() {
+	
+	//Seta sensores e chama funcao de comunicacao bluetooth
+	SetSensor(IN_1, SENSOR_TOUCH);
+	SetSensor(IN_2, SENSOR_TOUCH);
+	Precedes(bluetooth);
+
+}
