@@ -1,0 +1,540 @@
+#SYMBOLS
+Index	Identifier	Type	Flag	Data	Size	RefCount
+0	__CLSWMutex3	9	0	0	4	2
+1	__D0main	6	1	4	4	13
+2	__CLSRMutex3	9	0	8	4	2
+3	__signed_stack_002BTCheck	6	1	12	4	2
+4	__CLSCSMutex3	9	0	16	4	2
+5	__signed_stack_001BTCheck	6	1	20	4	4
+6	__D0BTCheck	6	1	24	4	7
+7	__SRSTmpLongVal	6	1	28	4	4
+8	__RRNTmpVal	6	1	32	4	10
+9	__RLSBmutex3	9	0	36	4	2
+10	__D0atualizaSensores	6	1	40	4	16
+11	__TextOutMutex	9	0	44	4	4
+12	__RLSBmutex2	9	0	48	4	2
+13	__CLSRMutex2	9	0	52	4	2
+14	__unsigned_stack_001main	5	1	56	4	4
+15	__Wait_7qG2_ms_7qG2_000_inline_BTCheck	5	1	60	4	2
+16	__Wait_7qG2_ms_7qG2_000_inline_atualizaSensores	5	1	64	4	4
+17	__CLSCSMutex2	9	0	68	4	2
+18	__signed_stack_001main	6	1	72	4	2
+19	__CLSWMutex2	9	0	76	4	2
+20	__signed_stack_002main	6	1	80	4	2
+21	__constVal128	4	0	84	2	1
+22	__atualizaSensores_7qG2_input_7qG2_000	4	1	86	2	3
+23	__BTCheck_7qG2_conn_7qG2_000	4	1	88	2	2
+24	____initialize_global_data_return	1	1	90	1	3
+25	__RRNErr	1	1	91	1	2
+26	__RLSBResult3	2	1	92	1	7
+27	__RLSBytesCount3	1	1	93	1	7
+28	__RLSBIterations3	1	1	94	1	4
+29	__constVal14	2	0	95	1	1
+30	__atualizaSensores_return	1	1	96	1	3
+31	__BTCheck_return	1	1	97	1	3
+32	__WFRRTmpByte	1	1	98	1	4
+33	__SetSensorColorRed_7qG2_port_7qG2_000_inline_atualizaSensores	1	1	99	1	4
+34	__constVal15	2	0	100	1	2
+35	____ResetSensorSubroutine_return	1	1	101	1	3
+36	__ResetSensorTmp	1	1	102	1	2
+37	__LSWriteOptionsVar	1	1	103	1	4
+38	__RLSBResult2	2	1	104	1	7
+39	____ReadLSBytes2_return	1	1	105	1	3
+40	__ResetSensorPort	1	1	106	1	3
+41	__constVal0	2	1	107	1	4
+42	__constVal1	2	0	108	1	14
+43	__constVal3	2	0	109	1	4
+44	__constVal5	2	0	110	1	4
+45	__constVal4	2	0	111	1	4
+46	__RLSBIterations2	1	1	112	1	4
+47	__RLSBytesCount2	1	1	113	1	7
+48	____ReadLSBytes3_return	1	1	114	1	3
+49	__constVal2	2	0	115	1	4
+50	__CLSCSArgs3	8	0	3	4	4
+51	__CLSCSArgs3.Result	2	1	116	1	4
+52	__CLSCSArgs3.Port	1	1	117	1	4
+53	__CLSCSArgs3.BytesReady	1	1	118	1	4
+54	__CLSRArgs2	8	0	4	12	5
+55	__CLSRArgs2.Result	2	1	120	1	5
+56	__CLSRArgs2.Port	1	1	121	1	5
+57	__CLSRArgs2.Buffer	7	0	122	4	5
+58	__CLSRArgs2.Buffer.Buffer_type	1	0	0	1	0
+59	__CLSRArgs2.BufferLen	1	1	124	1	5
+60	__CLSRArgs3	8	0	4	12	5
+61	__CLSRArgs3.Result	2	1	128	1	5
+62	__CLSRArgs3.Port	1	1	129	1	5
+63	__CLSRArgs3.Buffer	7	0	130	4	5
+64	__CLSRArgs3.Buffer.Buffer_type	1	0	0	1	0
+65	__CLSRArgs3.BufferLen	1	1	132	1	5
+66	__CLSWArgs3	8	0	4	12	5
+67	__CLSWArgs3.Result	2	1	136	1	5
+68	__CLSWArgs3.Port	1	1	137	1	5
+69	__CLSWArgs3.Buffer	7	0	138	4	5
+70	__CLSWArgs3.Buffer.Buffer_type	1	0	0	1	0
+71	__CLSWArgs3.ReturnLen	1	1	140	1	5
+72	sensores	8	0	5	8	11
+73	sensores.cor	4	1	144	2	11
+74	sensores.som_esq	4	1	146	2	11
+75	sensores.som_dir	4	1	148	2	11
+76	sensores.toque_esq	1	1	150	1	11
+77	sensores.toque_dir	1	1	151	1	11
+78	__MRArgs	8	0	4	8	8
+79	__MRArgs.Result	2	1	152	1	8
+80	__MRArgs.QueueID	1	1	153	1	8
+81	__MRArgs.Remove	1	1	154	1	8
+82	__MRArgs.Message	7	0	156	4	8
+83	__MRArgs.Message.Message_type	1	0	0	1	0
+84	__CLSWArgs2	8	0	4	12	5
+85	__CLSWArgs2.Result	2	1	160	1	5
+86	__CLSWArgs2.Port	1	1	161	1	5
+87	__CLSWArgs2.Buffer	7	0	162	4	5
+88	__CLSWArgs2.Buffer.Buffer_type	1	0	0	1	0
+89	__CLSWArgs2.ReturnLen	1	1	164	1	5
+90	__CLSCSArgs2	8	0	3	4	4
+91	__CLSCSArgs2.Result	2	1	168	1	4
+92	__CLSCSArgs2.Port	1	1	169	1	4
+93	__CLSCSArgs2.BytesReady	1	1	170	1	4
+94	__TextOutArgs	8	0	4	16	12
+95	__TextOutArgs.Result	2	1	172	1	12
+96	__TextOutArgs.Location	8	0	2	4	12
+97	__TextOutArgs.Location.X	4	1	176	2	12
+98	__TextOutArgs.Location.Y	4	1	178	2	12
+99	__TextOutArgs.Text	7	0	180	4	12
+100	__TextOutArgs.Text.Text_type	1	0	0	1	0
+101	__TextOutArgs.Options	5	1	184	4	12
+102	__CBTWArgs	8	0	3	8	8
+103	__CBTWArgs.Result	2	1	188	1	8
+104	__CBTWArgs.Connection	1	1	189	1	8
+105	__CBTWArgs.Buffer	7	0	190	4	8
+106	__CBTWArgs.Buffer.Buffer_type	1	0	0	1	0
+107	__CHSWArgs	8	0	3	12	6
+108	__CHSWArgs.Status	2	1	192	1	6
+109	__CHSWArgs.Buffer	7	0	194	4	6
+110	__CHSWArgs.Buffer.Buffer_type	1	0	0	1	0
+111	__CHSWArgs.BufferLen	1	1	196	1	6
+112	__CBTCSArgs	8	0	2	4	4
+113	__CBTCSArgs.Result	2	1	200	1	4
+114	__CBTCSArgs.Connection	1	1	201	1	4
+115	__RLSReadBuf2	7	0	202	4	8
+116	__RLSReadBuf2.__RLSReadBuf2_type	1	0	0	1	0
+117	__RLSReadBuf3	7	0	204	4	8
+118	__RLSReadBuf3.__RLSReadBuf3_type	1	0	0	1	0
+119	__SRSFlattenBuf	7	0	206	4	4
+120	__SRSFlattenBuf.__SRSFlattenBuf_type	1	0	0	1	0
+121	__SRSTmpBuf	7	0	208	4	12
+122	__SRSTmpBuf.__SRSTmpBuf_type	1	0	0	1	0
+123	__constStr0010	7	0	210	4	1
+124	__constStr0010.__constStr0010_type	1	1	0	1	0
+125	__RLSLastGoodRead3	7	0	212	4	2
+126	__RLSLastGoodRead3.__RLSLastGoodRead3_type	1	0	0	1	0
+127	__SRSSendBuf	7	0	214	4	6
+128	__SRSSendBuf.__SRSSendBuf_type	1	0	0	1	0
+129	__strbufmain	7	0	216	4	2
+130	__strbufmain.__strbufmain_type	1	0	0	1	0
+131	__RLSBbufLSWrite1	7	0	218	4	2
+132	__RLSBbufLSWrite1.__RLSBbufLSWrite1_type	1	0	0	1	0
+133	__LSWriteOptions	7	0	220	4	2
+134	__LSWriteOptions.__LSWriteOptions_type	1	0	0	1	0
+135	__RLSLastGoodRead2	7	0	222	4	2
+136	__RLSLastGoodRead2.__RLSLastGoodRead2_type	1	0	0	1	0
+137	__constStr0009	7	0	224	4	1
+138	__constStr0009.__constStr0009_type	1	1	0	1	0
+139	__DCMessageWritePacket	7	0	226	4	2
+140	__DCMessageWritePacket.__DCMessageWritePacket_type	1	0	0	1	0
+141	__strbufBTCheck	7	0	228	4	2
+142	__strbufBTCheck.__strbufBTCheck_type	1	0	0	1	0
+#SOURCES
+Clump	Line	PC	Source
+0	149	0	#line 149 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	150	0		subcall __initialize_global_data, ____initialize_global_data_return
+0	149	2	#line 149 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	149	2	#line 149 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	150	2		set sensores.toque_esq, 0
+0	149	5	#line 149 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	149	5	#line 149 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	150	5	#line 150 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	151	5		set sensores.toque_dir, 0
+0	150	8	#line 150 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	150	8	#line 150 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	152	8	#line 152 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	152	8	#line 152 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	152	8	#line 152 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	153	8	#line 153 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	154	8		set __BTCheck_7qG2_conn_7qG2_000, 1
+0	153	11	#line 153 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	153	11	#line 153 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	154	11		subcall BTCheck, __BTCheck_return
+0	153	13	#line 153 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	155	13	#line 155 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	156	13		set __D0main, 1
+0	164	16	#line 164 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	165	16		tst 5, __D0main, __D0main
+0	164	19	#line 164 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	165	19		brtst 4, __ASM_Label_684, __D0main
+0	164	22	#line 164 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	165	22		subcall atualizaSensores, __atualizaSensores_return
+0	164	24	#line 164 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	165	24	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	24		mov __unsigned_stack_001main, sensores.toque_esq
+0	165	26	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	165	26	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	26		set __D0main, 1
+0	165	29	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	29		cmp 4, __D0main, __unsigned_stack_001main, __D0main
+0	165	33	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	33		brtst 5, __ASM_Label_687, __D0main
+0	165	36	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	36		mov __unsigned_stack_001main, sensores.toque_dir
+0	165	38	#line 165 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	38	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	38		set __D0main, 1
+0	166	41	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	41		cmp 4, __D0main, __unsigned_stack_001main, __D0main
+0	166	45	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	45		brtst 4, __ASM_Label_690, __D0main
+0	166	48	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	48		set __signed_stack_001main, 0
+0	166	51	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	51	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	51		set __signed_stack_002main, 0
+0	166	54	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	166	54	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	54		strcat __strbufmain, __constStr0010
+0	166	58	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	58		acquire __TextOutMutex
+0	166	59	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	59		mov __TextOutArgs.Location.X, __signed_stack_001main
+0	166	61	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	61		mov __TextOutArgs.Location.Y, __signed_stack_002main
+0	166	63	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	63		set __TextOutArgs.Options, 0
+0	166	66	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	66		mov __TextOutArgs.Text, __strbufmain
+0	166	68	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	68		syscall 13, __TextOutArgs
+0	166	71	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	71		mov __D0main, __TextOutArgs.Result
+0	166	73	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	167	73		release __TextOutMutex
+0	166	74	#line 166 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	193	74	#line 193 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	195	74	#line 195 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	196	74		jmp __ASM_Label_683
+0	195	76	#line 195 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+0	196	76		exit -1, -1
+1	5724	0		setin __constVal1, __ResetSensorPort, 5
+1	5726	4		getin __ResetSensorTmp, __ResetSensorPort, 5
+1	5727	8		brtst 5, __SensorStillInvalid, __ResetSensorTmp
+1	5728	11		subret ____ResetSensorSubroutine_return
+2	6595	0	#pragma macro 27
+2	6595	0		acquire __CLSWMutex2
+2	6595	1		index __LSWriteOptionsVar, __LSWriteOptions, __constVal2
+2	6595	5		or __CLSWArgs2.Port, __constVal2, __LSWriteOptionsVar
+2	6595	9		mov __CLSWArgs2.ReturnLen, __RLSBytesCount2
+2	6595	11		mov __CLSWArgs2.Buffer, __RLSReadBuf2
+2	6595	13		syscall 21, __CLSWArgs2
+2	6595	16		mov __RLSBResult2, __CLSWArgs2.Result
+2	6595	18		release __CLSWMutex2
+2	6595	19	#line 6595 "NXTDefs.h"
+2	6596	19		brtst 5, __RLSBError2, __RLSBResult2
+2	6597	22		set __RLSBIterations2, 60
+2	6599	25	#pragma macro 23
+2	6599	25		acquire __CLSCSMutex2
+2	6599	26		set __CLSCSArgs2.Port, 2
+2	6599	29		syscall 23, __CLSCSArgs2
+2	6599	32		mov __RLSBytesCount2, __CLSCSArgs2.BytesReady
+2	6599	34		mov __RLSBResult2, __CLSCSArgs2.Result
+2	6599	36		release __CLSCSMutex2
+2	6599	37	#line 6599 "NXTDefs.h"
+2	6600	37		sub __RLSBIterations2, __RLSBIterations2, __constVal1
+2	6601	41		brtst 2, __RLSBError2, __RLSBIterations2
+2	6602	44		brtst 0, __RLSBError2, __RLSBResult2
+2	6603	47		brtst 4, __RLSBReadyToRead2, __RLSBResult2
+2	6605	50		wait 1
+2	6606	52		jmp __RLSBDoCheckStatus2
+2	6608	54		brtst 4, __RLSBReturn2, __RLSBytesCount2
+2	6609	57		arrinit __RLSReadBuf2, __constVal0, __RLSBytesCount2
+2	6611	61	#pragma macro 25
+2	6611	61		acquire __CLSRMutex2
+2	6611	62		set __CLSRArgs2.Port, 2
+2	6611	65		mov __CLSRArgs2.BufferLen, __RLSBytesCount2
+2	6611	67		syscall 22, __CLSRArgs2
+2	6611	70		mov __RLSReadBuf2, __CLSRArgs2.Buffer
+2	6611	72		mov __RLSBResult2, __CLSRArgs2.Result
+2	6611	74		release __CLSRMutex2
+2	6611	75	#line 6611 "NXTDefs.h"
+2	6612	75		brtst 5, __RLSBError2, __RLSBResult2
+2	6613	78		mov __RLSLastGoodRead2, __RLSReadBuf2
+2	6614	80		jmp __RLSBDone2
+2	6616	82		mov __RLSReadBuf2, __RLSLastGoodRead2
+2	6618	84		arrsize __RLSBytesCount2, __RLSReadBuf2
+2	6620	87		subret ____ReadLSBytes2_return
+3	6632	0	#pragma macro 27
+3	6632	0		acquire __CLSWMutex3
+3	6632	1		index __LSWriteOptionsVar, __LSWriteOptions, __constVal3
+3	6632	5		or __CLSWArgs3.Port, __constVal3, __LSWriteOptionsVar
+3	6632	9		mov __CLSWArgs3.ReturnLen, __RLSBytesCount3
+3	6632	11		mov __CLSWArgs3.Buffer, __RLSReadBuf3
+3	6632	13		syscall 21, __CLSWArgs3
+3	6632	16		mov __RLSBResult3, __CLSWArgs3.Result
+3	6632	18		release __CLSWMutex3
+3	6632	19	#line 6632 "NXTDefs.h"
+3	6633	19		brtst 5, __RLSBError3, __RLSBResult3
+3	6634	22		set __RLSBIterations3, 60
+3	6636	25	#pragma macro 23
+3	6636	25		acquire __CLSCSMutex3
+3	6636	26		set __CLSCSArgs3.Port, 3
+3	6636	29		syscall 23, __CLSCSArgs3
+3	6636	32		mov __RLSBytesCount3, __CLSCSArgs3.BytesReady
+3	6636	34		mov __RLSBResult3, __CLSCSArgs3.Result
+3	6636	36		release __CLSCSMutex3
+3	6636	37	#line 6636 "NXTDefs.h"
+3	6637	37		sub __RLSBIterations3, __RLSBIterations3, __constVal1
+3	6638	41		brtst 2, __RLSBError3, __RLSBIterations3
+3	6639	44		brtst 0, __RLSBError3, __RLSBResult3
+3	6640	47		brtst 4, __RLSBReadyToRead3, __RLSBResult3
+3	6642	50		wait 1
+3	6643	52		jmp __RLSBDoCheckStatus3
+3	6645	54		brtst 4, __RLSBReturn3, __RLSBytesCount3
+3	6646	57		arrinit __RLSReadBuf3, __constVal0, __RLSBytesCount3
+3	6648	61	#pragma macro 25
+3	6648	61		acquire __CLSRMutex3
+3	6648	62		set __CLSRArgs3.Port, 3
+3	6648	65		mov __CLSRArgs3.BufferLen, __RLSBytesCount3
+3	6648	67		syscall 22, __CLSRArgs3
+3	6648	70		mov __RLSReadBuf3, __CLSRArgs3.Buffer
+3	6648	72		mov __RLSBResult3, __CLSRArgs3.Result
+3	6648	74		release __CLSRMutex3
+3	6648	75	#line 6648 "NXTDefs.h"
+3	6649	75		brtst 5, __RLSBError3, __RLSBResult3
+3	6650	78		mov __RLSLastGoodRead3, __RLSReadBuf3
+3	6651	80		jmp __RLSBDone3
+3	6653	82		mov __RLSReadBuf3, __RLSLastGoodRead3
+3	6655	84		arrsize __RLSBytesCount3, __RLSReadBuf3
+3	6657	87		subret ____ReadLSBytes3_return
+4	80	0	#line 80 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	81	0	#pragma macro 5
+4	81	0		mov __CBTCSArgs.Connection, __BTCheck_7qG2_conn_7qG2_000
+4	81	2		syscall 28, __CBTCSArgs
+4	6795	5	#line 6795 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	80	5	#line 80 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	81	5		not __signed_stack_001BTCheck, __CBTCSArgs.Result
+4	80	8	#line 80 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	81	8	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	82	8		set __D0BTCheck, 0
+4	81	11	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	82	11		cmp 4, __D0BTCheck, __signed_stack_001BTCheck, __D0BTCheck
+4	82	15	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	15		brtst 4, __ASM_Label_636, __D0BTCheck
+4	82	18	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	18		set __signed_stack_001BTCheck, 5
+4	82	21	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	82	21	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	21		set __signed_stack_002BTCheck, 0
+4	82	24	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	82	24	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	24		strcat __strbufBTCheck, __constStr0009
+4	82	28	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	28		acquire __TextOutMutex
+4	82	29	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	29		mov __TextOutArgs.Location.X, __signed_stack_001BTCheck
+4	82	31	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	31		mov __TextOutArgs.Location.Y, __signed_stack_002BTCheck
+4	82	33	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	33		set __TextOutArgs.Options, 0
+4	82	36	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	36		mov __TextOutArgs.Text, __strbufBTCheck
+4	82	38	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	38		syscall 13, __TextOutArgs
+4	82	41	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	41		mov __D0BTCheck, __TextOutArgs.Result
+4	82	43	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	43		release __TextOutMutex
+4	82	44	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	83	44	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	84	44		set __Wait_7qG2_ms_7qG2_000_inline_BTCheck, 1000
+4	83	47	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	8869	47	#line 8869 "NXCDefs.h"
+4	8870	47		waitv __Wait_7qG2_ms_7qG2_000_inline_BTCheck
+4	8869	49	#line 8869 "NXCDefs.h"
+4	83	49	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	84	49	#line 84 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	85	49		set __D0BTCheck, 1
+4	84	52	#line 84 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	85	52		stop __D0BTCheck
+4	84	54	#line 84 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	90	54	#line 90 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	90	54	#line 90 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+4	91	54		subret __BTCheck_return
+5	92	0	#line 92 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	93	0		set __SetSensorColorRed_7qG2_port_7qG2_000_inline_atualizaSensores, 0
+5	92	3	#line 92 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	4577	3	#line 4577 "NXCDefs.h"
+5	4578	3	#pragma macro 6
+5	4578	3		setin __constVal14, __SetSensorColorRed_7qG2_port_7qG2_000_inline_atualizaSensores, 0
+5	4578	7		setin __constVal128, __SetSensorColorRed_7qG2_port_7qG2_000_inline_atualizaSensores, 1
+5	4578	11		mov __ResetSensorPort, __SetSensorColorRed_7qG2_port_7qG2_000_inline_atualizaSensores
+5	4578	13		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
+5	6874	15	#line 6874 "NXCDefs.h"
+5	4577	15	#line 4577 "NXCDefs.h"
+5	92	15	#line 92 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	94	15	#line 94 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	95	15		set __atualizaSensores_7qG2_input_7qG2_000, 0
+5	94	18	#line 94 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	98	18	#line 98 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	99	18	#pragma macro 25
+5	99	18		mov __SRSTmpBuf, __DCMessageWritePacket
+5	99	20		replace __SRSTmpBuf, __SRSTmpBuf, __constVal2, __constVal5
+5	99	25		replace __SRSTmpBuf, __SRSTmpBuf, __constVal3, __constVal5
+5	99	30		mov __SRSTmpLongVal, __constVal0
+5	99	32		flatten __SRSFlattenBuf, __SRSTmpLongVal
+5	99	35		arrbuild __SRSSendBuf, __SRSTmpBuf, __SRSFlattenBuf
+5	99	40		brcmp 0, __ConnWrite_Else0, __constVal1, __constVal4
+5	99	44		sub __WFRRTmpByte, __constVal1, __constVal4
+5	99	48		arrbuild __CHSWArgs.Buffer, __WFRRTmpByte, __SRSSendBuf
+5	99	53		syscall 37, __CHSWArgs
+5	99	56		mov __D0atualizaSensores, __CHSWArgs.Status
+5	99	58		jmp __ConnWrite_EndIf0
+5	99	60		mov __CBTWArgs.Connection, __constVal1
+5	99	62		mov __CBTWArgs.Buffer, __SRSSendBuf
+5	99	64		syscall 29, __CBTWArgs
+5	99	67		mov __D0atualizaSensores, __CBTWArgs.Result
+5	6886	69	#line 6886 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	98	69	#line 98 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	98	69	#line 98 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	99	69	#line 99 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	100	69		set __Wait_7qG2_ms_7qG2_000_inline_atualizaSensores, 10
+5	99	72	#line 99 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	8869	72	#line 8869 "NXCDefs.h"
+5	8870	72		waitv __Wait_7qG2_ms_7qG2_000_inline_atualizaSensores
+5	8869	74	#line 8869 "NXCDefs.h"
+5	99	74	#line 99 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	100	74	#line 100 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	101	74	#pragma macro 9
+5	101	74		mov __MRArgs.QueueID, __constVal1
+5	101	76		mov __MRArgs.Remove, __constVal1
+5	101	78		set __RRNTmpVal, 0
+5	101	81		syscall 27, __MRArgs
+5	101	84		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+5	101	89		mov __atualizaSensores_7qG2_input_7qG2_000, __RRNTmpVal
+5	6902	91	#line 6902 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	100	91	#line 100 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	100	91	#line 100 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	101	91	#line 101 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	102	91		mov __D0atualizaSensores, __RRNTmpVal
+5	102	93	#line 102 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	103	93		tst 5, __D0atualizaSensores, __D0atualizaSensores
+5	102	96	#line 102 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	103	96		brtst 4, __ASM_Label_653, __D0atualizaSensores
+5	102	99	#line 102 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	103	99		set sensores.toque_dir, 1
+5	102	102	#line 102 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	102	102	#line 102 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	105	102	#line 105 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	106	102		jmp __ASM_Label_656
+5	105	104	#line 105 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	106	104		set sensores.toque_dir, 0
+5	105	107	#line 105 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	105	107	#line 105 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	105	107	#line 105 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	108	107	#line 108 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	109	107	#pragma macro 25
+5	109	107		mov __SRSTmpBuf, __DCMessageWritePacket
+5	109	109		replace __SRSTmpBuf, __SRSTmpBuf, __constVal2, __constVal5
+5	109	114		replace __SRSTmpBuf, __SRSTmpBuf, __constVal3, __constVal5
+5	109	119		mov __SRSTmpLongVal, __constVal1
+5	109	121		flatten __SRSFlattenBuf, __SRSTmpLongVal
+5	109	124		arrbuild __SRSSendBuf, __SRSTmpBuf, __SRSFlattenBuf
+5	109	129		brcmp 0, __ConnWrite_Else1, __constVal1, __constVal4
+5	109	133		sub __WFRRTmpByte, __constVal1, __constVal4
+5	109	137		arrbuild __CHSWArgs.Buffer, __WFRRTmpByte, __SRSSendBuf
+5	109	142		syscall 37, __CHSWArgs
+5	109	145		mov __D0atualizaSensores, __CHSWArgs.Status
+5	109	147		jmp __ConnWrite_EndIf1
+5	109	149		mov __CBTWArgs.Connection, __constVal1
+5	109	151		mov __CBTWArgs.Buffer, __SRSSendBuf
+5	109	153		syscall 29, __CBTWArgs
+5	109	156		mov __D0atualizaSensores, __CBTWArgs.Result
+5	6929	158	#line 6929 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	108	158	#line 108 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	108	158	#line 108 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	109	158	#line 109 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	110	158		set __Wait_7qG2_ms_7qG2_000_inline_atualizaSensores, 10
+5	109	161	#line 109 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	8869	161	#line 8869 "NXCDefs.h"
+5	8870	161		waitv __Wait_7qG2_ms_7qG2_000_inline_atualizaSensores
+5	8869	163	#line 8869 "NXCDefs.h"
+5	109	163	#line 109 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	110	163	#line 110 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	111	163	#pragma macro 9
+5	111	163		mov __MRArgs.QueueID, __constVal1
+5	111	165		mov __MRArgs.Remove, __constVal1
+5	111	167		set __RRNTmpVal, 0
+5	111	170		syscall 27, __MRArgs
+5	111	173		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
+5	111	178		mov __atualizaSensores_7qG2_input_7qG2_000, __RRNTmpVal
+5	6941	180	#line 6941 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	111	180	#line 111 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	111	180	#line 111 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	112	180		mov __D0atualizaSensores, __RRNTmpVal
+5	112	182	#line 112 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	113	182		tst 5, __D0atualizaSensores, __D0atualizaSensores
+5	112	185	#line 112 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	113	185		brtst 4, __ASM_Label_663, __D0atualizaSensores
+5	112	188	#line 112 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	113	188		set sensores.toque_esq, 1
+5	112	191	#line 112 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	112	191	#line 112 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	115	191	#line 115 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	116	191		jmp __ASM_Label_666
+5	115	193	#line 115 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	116	193		set sensores.toque_esq, 0
+5	115	196	#line 115 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	115	196	#line 115 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	115	196	#line 115 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	118	196	#line 118 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	119	196		getin sensores.cor, __constVal0, 4
+5	118	200	#line 118 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	118	200	#line 118 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	118	200	#line 118 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	121	200	#line 121 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	122	200	#pragma macro 26
+5	122	200		acquire __RLSBmutex2
+5	122	201		mov __RLSReadBuf2, __RLSBbufLSWrite1
+5	122	203		set __RLSBytesCount2, 1
+5	122	206		waitv __constVal15
+5	122	208		subcall __ReadLSBytes2, ____ReadLSBytes2_return
+5	122	210		index __D0atualizaSensores, __RLSReadBuf2, 65535
+5	122	214		release __RLSBmutex2
+5	6975	215	#line 6975 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	121	215	#line 121 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	122	215		mov sensores.som_dir, __D0atualizaSensores
+5	121	217	#line 121 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	121	217	#line 121 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	122	217	#line 122 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	123	217	#pragma macro 26
+5	123	217		acquire __RLSBmutex3
+5	123	218		mov __RLSReadBuf3, __RLSBbufLSWrite1
+5	123	220		set __RLSBytesCount3, 1
+5	123	223		waitv __constVal15
+5	123	225		subcall __ReadLSBytes3, ____ReadLSBytes3_return
+5	123	227		index __D0atualizaSensores, __RLSReadBuf3, 65535
+5	123	231		release __RLSBmutex3
+5	6983	232	#line 6983 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	122	232	#line 122 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	123	232		mov sensores.som_esq, __D0atualizaSensores
+5	122	234	#line 122 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	122	234	#line 122 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	130	234	#line 130 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+5	131	234		subret __atualizaSensores_return
+6	196	0	#line 196 "C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc"
+6	197	0		subret ____initialize_global_data_return
+#CLUMPS
+Clump	Name	Offset	File
+0	main	0	C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc
+1	__ResetSensorSubroutine	79	NXTDefs.h
+2	__ReadLSBytes2	92	NXTDefs.h
+3	__ReadLSBytes3	181	NXTDefs.h
+4	BTCheck	270	C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc
+5	atualizaSensores	326	C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc
+6	__initialize_global_data	562	C:\Users\Henrique\Desktop\SEK\velho\navegacao.nxc
