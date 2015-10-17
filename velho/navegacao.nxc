@@ -31,7 +31,7 @@
 #define OUTBOX 5			//Caixa de mensagens enviadas
 
 //Definicao de mensagens
-#define MSG_SENSOR_DIR 0
+#define MSG_SENSOR_DIR 2
 #define MSG_SENSOR_ESQ 1
 
 //Definicao de Sensores
@@ -91,37 +91,40 @@ sub BTCheck(int conn)
 task atualizaSensores()
 {
 	SetSensorColorRed(IN_1);
-
 	int input = 0;
+	while(1) {
 
-	//Atualiza sensor de toque (Bluetooth)
-	//Sensor de toque direito
-	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
-	Wait(10);
-	ReceiveRemoteNumber(INBOX, true, input);
-	if(input) {
-		sensores.toque_dir = true;
-	}
-	else
-		sensores.toque_dir = false;
-	
-	//Sensor de toque esquerdo
-	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
-	Wait(10);
-	ReceiveRemoteNumber(INBOX, true, input)
-	if(input) {
-		sensores.toque_esq = true;
-	}
-	else
-		sensores.toque_esq = false;
-	
-	//Atualiza sensores de cor
-	sensores.cor = 	SENSOR_COR;
-	
-	//Atualiza sensores ultrassonicos 
-	sensores.som_dir = SensorUS(IN_3);
-	sensores.som_esq = SensorUS(IN_4);
+		//Atualiza sensor de toque (Bluetooth)
+		//Sensor de toque direito
+		SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
+		Wait(10);
+		ReceiveRemoteNumber(INBOX, true, input);
+		if(input > 0) {
+			if(input == 2) {
+				sensores.toque_dir = true;
+			}
+			else
+				sensores.toque_dir = false;
+		}
 
+		//Sensor de toque esquerdo
+		SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
+		Wait(10);
+		ReceiveRemoteNumber(INBOX, true, input)
+		if(input < 0) {
+			if(input == -2) {
+				sensores.toque_esq = true;
+			}
+			else
+				sensores.toque_esq = false;
+		}
+		//Atualiza sensores de cor
+		sensores.cor = 	SENSOR_COR;
+		
+		//Atualiza sensores ultrassonicos 
+		sensores.som_dir = SensorUS(IN_3);
+		sensores.som_esq = SensorUS(IN_4);
+	}
 }
 
 //Funcao que sai de obstaculos
@@ -147,11 +150,12 @@ void moduloCentral()
 
 task main() {
 
-	Precedes(atualizaSensores);
-
 	estado = 0;
 	BTCheck(BT_CONN);
-	
+	StartTask(atualizaSensores);
+	sensores.toque_dir = false;
+	sensores.toque_esq = false;
+
 	while(1) {
 		/*
 		andar(FRENTE, 50);
@@ -161,8 +165,23 @@ task main() {
 		girar(DIREITA, 50);
 		girar(ESQUERDA, 50);
 	*/
-		if(sensores.toque_esq = true || sensores.toque_dir == true)
-			TextOut(0,0,"HELLO WORLD");
+		if(sensores.toque_esq == true && sensores.toque_dir == true) {
+			TextOut(0,0,"ESQUERDA");
+			TextOut(0,10,"DIREITA");
+			Wait(100);
+			ClearLine(0);
+			ClearLine(10);
+		}
+		else if(sensores.toque_esq == true) {
+			TextOut(0,0,"ESQUERDA");
+			Wait(100);
+			ClearLine(0);
+		}
+		else if(sensores.toque_dir == true) {
+			TextOut(0,10,"DIREITA");
+			Wait(100);
+			ClearLine(10);
+		}
 
 
 	}
