@@ -45,7 +45,7 @@
 #define DIREITA 0
 #define ANGULO_CURVA 300	//Fazer medicao
 
-/*typedef struct Sensor {
+struct Sensores {
 	int cor_esq;
 	int cor_dir;
 	
@@ -54,13 +54,11 @@
 	
 	bool toque_esq;
 	bool toque_dir;
-} Sensor;
-*/
+};
+
 //Variaveis globais
 int estado;					//Estado da maquina de estados
-//Sensor sensor;
-
-//-------------------  Verificar se as portas estão corretas. ----------------
+Sensores sensores;
 
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
@@ -78,15 +76,13 @@ void girar(int sentido, int potencia) {
 		RotateMotor(OUT_A, potencia, ANGULO_CURVA);
 }
 
-//--------------------------------------------------------------------------
-/*
 //Definir comunicao bluetooth
 sub BTCheck(int conn)
 {
 	//Checa comunicação bluetooth
 	if(!BluetoothStatus(conn)==NO_ERR)
 	{
-		TextOut(5,LCD_LINE,"ERROR BT");
+		TextOut(5, 0, "ERROR BT");
 		Wait(1000);
 		Stop(true);
 	}
@@ -94,7 +90,7 @@ sub BTCheck(int conn)
 
 //Funcao que checa obstaculos
 //Verificar viabilizacao dessa funcao ser uma task
-void atualizaSensores()
+task atualizaSensores()
 {
 	SetSensorColorRed(IN_1);
 	SetSensorColorRed(IN_2);
@@ -107,29 +103,29 @@ void atualizaSensores()
 	Wait(10);
 	ReceiveRemoteNumber(INBOX, true, input);
 	if(input)
-		sensor.toque_dir = true;
+		sensores.toque_dir = true;
 	else
-		sensor.toque_dir = false;
+		sensores.toque_dir = false;
 	
 	//Sensor de toque esquerdo
 	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
 	Wait(10);
 	ReceiveRemoteNumber(INBOX, true, input)
 	if(input)
-		sensor.toque_esq = true;
+		sensores.toque_esq = true;
 	else
-		sensor.toque_esq = false;
+		sensores.toque_esq = false;
 	
 	//Atualiza sensores de cor
-	sensor.cor_dir = SENSOR_COR_DIR;
-	sensor.cor_esq = SENSOR_COR_ESQ;
+	sensores.cor_dir = SENSOR_COR_DIR;
+	sensores.cor_esq = SENSOR_COR_ESQ;
 	
 	//Atualiza sensores ultrassonicos 
-	sensor.som_dir = SensorUS(IN_3);
-	sensor.som_esq = SensorUS(IN_4);
+	sensores.som_dir = SensorUS(IN_3);
+	sensores.som_esq = SensorUS(IN_4);
 
 }
-*/
+
 //Funcao que sai de obstaculos
 
 
@@ -153,11 +149,10 @@ void moduloCentral()
 
 task main() {
 
-	//Precedes(atualizaSensores);
+	Precedes(atualizaSensores);
 
 	estado = 0;
-	//BTCheck(BT_CONN);
-	//atualizaSensores();
+	BTCheck(BT_CONN);
 	
 	andar(FRENTE, 50);
 	Wait(1000);
@@ -165,7 +160,7 @@ task main() {
 	Wait(1000);
 	girar(DIREITA, 50);
 	girar(ESQUERDA, 50);
-	/*while(true){
+	while(true){
  
 	 	switch(estado)
 		{
@@ -181,9 +176,9 @@ task main() {
 	  		
 	  			break;
 	  		
-	  	}//switch estado		
+	  	}		
  	
- 	}//while()
-	*/
+ 	}
 	
-}//task main	
+	
+}	

@@ -16,7 +16,7 @@ sub BTCheck(int conn)
 	//Checa comunicação bluetooth
 	if(!(BluetoothStatus(conn)==NO_ERR))
 	{
-		TextOut(5,LCD_LINE8,"ERROR BT");
+		TextOut(5, 0, "ERROR BT");
 		Wait(1000);
 		Stop(true);
 	}
@@ -26,15 +26,14 @@ sub BTCheck(int conn)
  * por bluetooth. */
 task bluetooth() {
 
-	int msg;
+	int msg = 0;
 
-	BTCheck(BT_CONN);
 	ReceiveRemoteNumber(INBOX, true, msg);
 	if(msg == MSG_SENSOR_ESQ) {
-		SendRemoteNumber(BT_CONN, OUTBOX, SENSOR_TOQ_ESQ);
+		SendResponseNumber(OUTBOX, SENSOR_TOQ_ESQ);
 	}
 	else {
-		SendRemoteNumber(BT_CONN, OUTBOX, SENSOR_TOQ_DIR);
+		SendResponseNumber(OUTBOX, SENSOR_TOQ_DIR);
 	}
 
 }
@@ -42,6 +41,7 @@ task bluetooth() {
 task main() {
 	
 	//Seta sensores e chama funcao de comunicacao bluetooth
+	BTCheck(BT_CONN);
 	SetSensor(IN_1, SENSOR_TOUCH);
 	SetSensor(IN_2, SENSOR_TOUCH);
 	Precedes(bluetooth);
