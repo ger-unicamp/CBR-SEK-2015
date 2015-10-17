@@ -35,8 +35,7 @@
 #define MSG_SENSOR_ESQ 1
 
 //Definicao de Sensores
-#define SENSOR_COR_DIR SENSOR_1
-#define SENSOR_COR_ESQ SENSOR_2
+#define SENSOR_COR SENSOR_1
 
 //Definicao de navegacao
 #define FRENTE 1
@@ -46,8 +45,7 @@
 #define ANGULO_CURVA 300	//Fazer medicao
 
 struct Sensores {
-	int cor_esq;
-	int cor_dir;
+	int cor;
 	
 	int som_esq;
 	int som_dir;
@@ -93,7 +91,6 @@ sub BTCheck(int conn)
 task atualizaSensores()
 {
 	SetSensorColorRed(IN_1);
-	SetSensorColorRed(IN_2);
 
 	int input = 0;
 
@@ -102,8 +99,9 @@ task atualizaSensores()
 	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
 	Wait(10);
 	ReceiveRemoteNumber(INBOX, true, input);
-	if(input)
+	if(input) {
 		sensores.toque_dir = true;
+	}
 	else
 		sensores.toque_dir = false;
 	
@@ -111,14 +109,14 @@ task atualizaSensores()
 	SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
 	Wait(10);
 	ReceiveRemoteNumber(INBOX, true, input)
-	if(input)
+	if(input) {
 		sensores.toque_esq = true;
+	}
 	else
 		sensores.toque_esq = false;
 	
 	//Atualiza sensores de cor
-	sensores.cor_dir = SENSOR_COR_DIR;
-	sensores.cor_esq = SENSOR_COR_ESQ;
+	sensores.cor = 	SENSOR_COR;
 	
 	//Atualiza sensores ultrassonicos 
 	sensores.som_dir = SensorUS(IN_3);
@@ -154,13 +152,23 @@ task main() {
 	estado = 0;
 	BTCheck(BT_CONN);
 	
-	andar(FRENTE, 50);
-	Wait(1000);
-	andar(TRAS, 50);
-	Wait(1000);
-	girar(DIREITA, 50);
-	girar(ESQUERDA, 50);
-	while(true){
+	while(1) {
+		/*
+		andar(FRENTE, 50);
+		Wait(1000);
+		andar(TRAS, 50);
+		Wait(1000);
+		girar(DIREITA, 50);
+		girar(ESQUERDA, 50);
+	*/
+		if(sensores.toque_esq = true || sensores.toque_dir == true)
+			TextOut(0,0,"HELLO WORLD");
+
+
+	}
+
+
+	/*while(true){
  
 	 	switch(estado)
 		{
@@ -178,7 +186,7 @@ task main() {
 	  		
 	  	}		
  	
- 	}
+ 	}*/
 	
 	
 }	

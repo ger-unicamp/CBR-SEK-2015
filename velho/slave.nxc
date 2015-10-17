@@ -1,5 +1,5 @@
 //Definicao de comunicacao
-#define BT_CONN 1			//Canal de comunicacao Bluetooth
+#define BT_CONN 0			//Canal de comunicacao Bluetooth
 #define INBOX 5				//Caixa de mensagens recebidas
 #define OUTBOX 1			//Caixa de mensagens enviadas
 
@@ -26,27 +26,28 @@ sub BTCheck(int conn)
  * por bluetooth. */
 task bluetooth() {
 
-	int msg = 0;
+	int msg = 2;
 
   //Recebe a mensagem do Master
 	ReceiveRemoteNumber(INBOX, true, msg);
 
   //Responde o valor do sensor que o master mandou
-  if(msg == MSG_SENSOR_ESQ) {
-    int ans = SENSOR_TOQ_ESQ;
-    TextOut(0,0,"Sensor Esq");
-    Wait(100);
-    SendResponseNumber(OUTBOX, ans);
+	if(msg == MSG_SENSOR_ESQ) {
+	    int ans = SENSOR_TOQ_ESQ;
+	    TextOut(0, 0, "Sensor Esq");
+	    Wait(100);
+	    SendResponseNumber(OUTBOX, ans);
 	}
 	else if(msg == MSG_SENSOR_DIR) {
-    int ans = SENSOR_TOQ_DIR;
-    TextOut(0,1,"Sensor Dir");
-    Wait(100);
-    SendResponseNumber(OUTBOX, ans);
-	}else
+	    int ans = SENSOR_TOQ_DIR;
+	    TextOut(0, 1, "Sensor Dir");
+	    Wait(100);
+	    SendResponseNumber(OUTBOX, ans);
+	}
+	else
 	{
-    Wait(100);
-    TextOut(0,2,"Nenhuma Mensagem");
+	    Wait(100);
+	    TextOut(0, 2, "Nenhuma Mensagem");
 	}
 
 }
@@ -57,6 +58,10 @@ task main() {
 	BTCheck(BT_CONN);
 	SetSensor(IN_1, SENSOR_TOUCH);
 	SetSensor(IN_2, SENSOR_TOUCH);
-	Precedes(bluetooth);
+	
 
+	while(1)
+	{
+		Precedes(bluetooth);	
+	}
 }
