@@ -1,10 +1,15 @@
-//Observações sobre a linguagem
+﻿//Observações sobre a linguagem
 /*
 	- Aparentemente #define QUALQUER_COISA SENSOR_1 define QUALQUER_COISA como um alias
 	  para o valor retornado pelo sensor 1.
 	- O valor retornado pelos sensores pode ser acessado por SENSOR_X onde x eh o numero
 	  da porta do sensor. 
 */
+
+//Observacoes sobre o bluetooth
+
+ReceiveRemoteNumber(inbox, bool, input)
+Caso nenhuma mensagem seja captada, a variavel de input retornará valor nulo
 
 //Funcoes relacionadas ao motor
 OnFwd(OUT_PORTADOMOTOR, porcentagemDaVelocidade) //Move frente

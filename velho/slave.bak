@@ -30,7 +30,20 @@ task bluetooth() {
 	int ans;
 
 	while(1) {
-	  //Recebe a mensagem do Master
+
+    ans = 0;
+
+    Wait(10);
+    if(SENSOR_TOQ_ESQ)
+       ans+= 10;
+    
+    if(SENSOR_TOQ_DIR)
+       ans+= 1;
+    
+    SendResponseNumber(OUTBOX, ans);
+
+    /*
+    //Recebe a mensagem do Master
 		ReceiveRemoteNumber(INBOX, true, msg);
 
 		Wait(90);
@@ -58,7 +71,8 @@ task bluetooth() {
 		    Wait(10);
 		    ClearLine(16);
 		}
-	}
+   */
+  }
 }
 
 task main() {

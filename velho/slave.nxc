@@ -40,38 +40,11 @@ task bluetooth() {
     if(SENSOR_TOQ_DIR)
        ans+= 1;
     
+    if(!SENSOR_TOQ_DIR && !SENSOR_TOQ_ESQ)
+       ans = -1;
+    
     SendResponseNumber(OUTBOX, ans);
 
-    /*
-    //Recebe a mensagem do Master
-		ReceiveRemoteNumber(INBOX, true, msg);
-
-		Wait(90);
-
-	  //Responde o valor do sensor que o master mandou
-		if(msg == MSG_SENSOR_ESQ) {
-		    ans = SENSOR_TOQ_ESQ;
-		    ans = (-1) * (ans + 1);
-		    TextOut(0, 0, "Sensor Esq");
-		    Wait(10);
-		    ClearLine(0);
-		    SendResponseNumber(OUTBOX, ans);
-		}
-		else if(msg == MSG_SENSOR_DIR) {
-		    ans = SENSOR_TOQ_DIR;
-		    ans++;
-		    TextOut(0, 8, "Sensor Dir");
-		    Wait(10);
-		    ClearLine(8);
-		    SendResponseNumber(OUTBOX, ans);
-		}
-		else
-		{
-		    TextOut(0, 16, "Nenhuma Mensagem");
-		    Wait(10);
-		    ClearLine(16);
-		}
-   */
   }
 }
 
