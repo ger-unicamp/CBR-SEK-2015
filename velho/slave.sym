@@ -1,122 +1,124 @@
 #SYMBOLS
 Index	Identifier	Type	Flag	Data	Size	RefCount
-0	__D0BTCheck	6	1	0	4	11
-1	__D0main	6	1	4	4	4
-2	__D0bluetooth	6	1	8	4	13
-3	__SRNTmpVal	6	1	12	4	4
-4	__RRNTmpVal	6	1	16	4	5
-5	__signed_stack_001bluetooth	6	1	20	4	10
-6	__Wait_7qG2_ms_7qG2_000_inline_BTCheck	5	1	24	4	2
-7	__Wait_7qG2_ms_7qG2_000_inline_bluetooth	5	1	28	4	4
-8	__signed_stack_002BTCheck	6	1	32	4	2
-9	__signed_stack_002bluetooth	6	1	36	4	6
-10	__signed_stack_001BTCheck	6	1	40	4	4
-11	__TextOutMutex	9	0	44	4	8
-12	__SetSensor_7qG2_config_7qG2_000_inline_main	3	1	48	2	2
-13	__constVal288	4	0	50	2	2
-14	__bluetooth_7qG2_msg_7qG2_000	4	1	52	2	3
-15	__BTCheck_7qG2_conn_7qG2_000	4	1	54	2	2
-16	__bluetooth_7qG2_ans_7qG2_001	4	1	56	2	4
-17	__constVal1	2	0	58	1	7
-18	__BTCheck_return	1	1	59	1	3
-19	____initialize_global_data_return	1	1	60	1	3
-20	__constVal32	2	0	61	1	2
-21	__bluetooth_return	1	1	62	1	3
-22	__SetSensor_7qG2_port_7qG2_000_inline_main	1	1	63	1	8
-23	__constVal0	2	1	64	1	1
-24	__constVal5	2	0	65	1	1
-25	__constVal10	2	0	66	1	2
-26	__PFTmp	1	1	67	1	1
-27	__RRNErr	1	1	68	1	1
-28	__ResetSensorPort	1	1	69	1	4
-29	__ResetSensorTmp	1	1	70	1	2
-30	____ResetSensorSubroutine_return	1	1	71	1	4
-31	__MRArgs	8	0	4	8	4
-32	__MRArgs.Result	2	1	72	1	4
-33	__MRArgs.QueueID	1	1	73	1	4
-34	__MRArgs.Remove	1	1	74	1	4
-35	__MRArgs.Message	7	0	76	4	4
-36	__MRArgs.Message.Message_type	1	0	0	1	0
-37	__MWArgs	8	0	3	8	8
-38	__MWArgs.Result	2	1	80	1	8
-39	__MWArgs.QueueID	1	1	81	1	8
-40	__MWArgs.Message	7	0	82	4	8
-41	__MWArgs.Message.Message_type	1	0	0	1	0
-42	__TextOutArgs	8	0	4	16	24
-43	__TextOutArgs.Result	2	1	84	1	24
-44	__TextOutArgs.Location	8	0	2	4	24
-45	__TextOutArgs.Location.X	4	1	88	2	24
-46	__TextOutArgs.Location.Y	4	1	90	2	24
-47	__TextOutArgs.Text	7	0	92	4	24
-48	__TextOutArgs.Text.Text_type	1	0	0	1	0
-49	__TextOutArgs.Options	5	1	96	4	24
-50	__CBTCSArgs	8	0	2	4	3
-51	__CBTCSArgs.Result	2	1	100	1	3
-52	__CBTCSArgs.Connection	1	1	101	1	3
-53	__constStr0012	7	0	102	4	1
-54	__constStr0012.__constStr0012_type	1	1	0	1	0
-55	__strbufBTCheck	7	0	104	4	2
-56	__strbufBTCheck.__strbufBTCheck_type	1	0	0	1	0
-57	__strbufbluetooth	7	0	106	4	6
-58	__strbufbluetooth.__strbufbluetooth_type	1	0	0	1	0
-59	__constStr0009	7	0	108	4	1
-60	__constStr0009.__constStr0009_type	1	1	0	1	0
-61	__constStr0011	7	0	110	4	1
-62	__constStr0011.__constStr0011_type	1	1	0	1	0
-63	__constStr0010	7	0	112	4	1
-64	__constStr0010.__constStr0010_type	1	1	0	1	0
+0	__D0bluetooth	6	1	0	4	17
+1	__D0BTCheck	6	1	4	4	11
+2	__MWMutex	9	0	8	4	2
+3	__SRNTmpVal	6	1	12	4	2
+4	__signed_stack_001BTCheck	6	1	16	4	4
+5	__Wait_7qG2_ms_7qG2_000_inline_bluetooth	5	1	20	4	2
+6	__Wait_7qG2_ms_7qG2_000_inline_main	5	1	24	4	2
+7	__signed_stack_002BTCheck	6	1	28	4	2
+8	__Wait_7qG2_ms_7qG2_000_inline_BTCheck	5	1	32	4	2
+9	__TextOutMutex	9	0	36	4	4
+10	__ResetSensorMutex	9	0	40	4	4
+11	__BTCheck_7qG2_conn_7qG2_000	4	1	44	2	2
+12	__constVal288	4	0	46	2	2
+13	__SetSensor_7qG2_config_7qG2_000_inline_main	3	1	48	2	2
+14	__bluetooth_7qG2_ans_7qG2_000	4	1	50	2	6
+15	____initialize_global_data_return	1	1	52	1	3
+16	__constVal32	2	0	53	1	2
+17	__constVal1	2	0	54	1	5
+18	__constVal0	2	1	55	1	3
+19	__constVal10	2	0	56	1	1
+20	__bluetooth_Spawner_return	1	1	57	1	1
+21	__ClearLine_7qG2_line_7qG2_000_inline_main	1	1	58	1	2
+22	__SetSensor_7qG2_port_7qG2_000_inline_main	1	1	59	1	8
+23	__ResetSensorTmp	1	1	60	1	2
+24	__ResetSensorPort	1	1	61	1	4
+25	__PFTmp	1	1	62	1	1
+26	____ResetSensorSubroutine_return	1	1	63	1	4
+27	__BTCheck_return	1	1	64	1	3
+28	__TextOutArgs	8	0	4	16	11
+29	__TextOutArgs.Result	2	1	68	1	11
+30	__TextOutArgs.Location	8	0	2	4	11
+31	__TextOutArgs.Location.X	4	1	72	2	11
+32	__TextOutArgs.Location.Y	4	1	74	2	11
+33	__TextOutArgs.Text	7	0	76	4	11
+34	__TextOutArgs.Text.Text_type	1	0	0	1	0
+35	__TextOutArgs.Options	5	1	80	4	11
+36	__CBTCSArgs	8	0	2	4	3
+37	__CBTCSArgs.Result	2	1	84	1	3
+38	__CBTCSArgs.Connection	1	1	85	1	3
+39	__MWArgs	8	0	3	8	4
+40	__MWArgs.Result	2	1	88	1	4
+41	__MWArgs.QueueID	1	1	89	1	4
+42	__MWArgs.Message	7	0	90	4	4
+43	__MWArgs.Message.Message_type	1	0	0	1	0
+44	__constStr0009	7	0	92	4	1
+45	__constStr0009.__constStr0009_type	1	1	0	1	0
+46	__BlankLine	7	0	94	4	1
+47	__BlankLine.__BlankLine_type	1	0	0	1	0
+48	__strbufBTCheck	7	0	96	4	2
+49	__strbufBTCheck.__strbufBTCheck_type	1	0	0	1	0
 #SOURCES
 Clump	Line	PC	Source
-0	56	0	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	57	0		subcall __initialize_global_data, ____initialize_global_data_return
-0	56	2	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	56	2	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	57	2		set __BTCheck_7qG2_conn_7qG2_000, 0
-0	56	5	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	56	5	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	57	5		subcall BTCheck, __BTCheck_return
-0	56	7	#line 56 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	57	7	#line 57 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	58	7		set __SetSensor_7qG2_port_7qG2_000_inline_main, 0
-0	57	10	#line 57 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	57	10	#line 57 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	58	10		mov __SetSensor_7qG2_config_7qG2_000_inline_main, __constVal288
-0	4472	12	#line 4472 "NXCDefs.h"
-0	4473	12		setin __constVal1, __SetSensor_7qG2_port_7qG2_000_inline_main, 0
-0	4474	16		setin __constVal32, __SetSensor_7qG2_port_7qG2_000_inline_main, 1
-0	4475	20	#pragma macro 4
-0	4475	20		mov __ResetSensorPort, __SetSensor_7qG2_port_7qG2_000_inline_main
-0	4475	22		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
-0	4174	24	#line 4174 "NXCDefs.h"
-0	4476	24	#line 4476 "NXCDefs.h"
-0	57	24	#line 57 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	58	24	#line 58 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	59	24		set __SetSensor_7qG2_port_7qG2_000_inline_main, 1
-0	58	27	#line 58 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	58	27	#line 58 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	59	27		mov __SetSensor_7qG2_config_7qG2_000_inline_main, __constVal288
-0	4472	29	#line 4472 "NXCDefs.h"
-0	4473	29		setin __constVal1, __SetSensor_7qG2_port_7qG2_000_inline_main, 0
-0	4474	33		setin __constVal32, __SetSensor_7qG2_port_7qG2_000_inline_main, 1
-0	4475	37	#pragma macro 4
-0	4475	37		mov __ResetSensorPort, __SetSensor_7qG2_port_7qG2_000_inline_main
-0	4475	39		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
-0	4186	41	#line 4186 "NXCDefs.h"
-0	4476	41	#line 4476 "NXCDefs.h"
-0	58	41	#line 58 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	62	41	#line 62 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	63	41		set __D0main, 1
-0	63	44	#line 63 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	64	44		tst 5, __D0main, __D0main
-0	63	47	#line 63 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	64	47		brtst 4, __ASM_Label_608, __D0main
-0	63	50	#line 63 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	64	50		subcall bluetooth, __bluetooth_return
-0	63	52	#line 63 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	67	52	#line 67 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	68	52		jmp __ASM_Label_607
-0	67	54	#line 67 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-0	68	54		exit -1, -1
+0	78	0	#line 78 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	79	0		subcall __initialize_global_data, ____initialize_global_data_return
+0	78	2	#line 78 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	78	2	#line 78 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	79	2		set __Wait_7qG2_ms_7qG2_000_inline_main, 100
+0	78	5	#line 78 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	8869	5	#line 8869 "NXCDefs.h"
+0	8870	5		wait2 NA, __Wait_7qG2_ms_7qG2_000_inline_main
+0	8869	8	#line 8869 "NXCDefs.h"
+0	78	8	#line 78 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	79	8	#line 79 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	80	8		set __ClearLine_7qG2_line_7qG2_000_inline_main, 16
+0	79	11	#line 79 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	6928	11	#line 6928 "NXCDefs.h"
+0	6929	11	#pragma macro 7
+0	6929	11		acquire __TextOutMutex
+0	6929	12		mov __TextOutArgs.Location.X, __constVal0
+0	6929	14		mov __TextOutArgs.Location.Y, __ClearLine_7qG2_line_7qG2_000_inline_main
+0	6929	16		mov __TextOutArgs.Options, __constVal0
+0	6929	18		mov __TextOutArgs.Text, __BlankLine
+0	6929	20		syscall 13, __TextOutArgs
+0	6929	23		release __TextOutMutex
+0	4140	24	#line 4140 "NXCDefs.h"
+0	6928	24	#line 6928 "NXCDefs.h"
+0	79	24	#line 79 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	81	24	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	82	24		set __BTCheck_7qG2_conn_7qG2_000, 0
+0	81	27	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	81	27	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	82	27		subcall BTCheck, __BTCheck_return
+0	81	29	#line 81 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	82	29	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	83	29		set __SetSensor_7qG2_port_7qG2_000_inline_main, 0
+0	82	32	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	82	32	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	83	32		mov __SetSensor_7qG2_config_7qG2_000_inline_main, __constVal288
+0	4472	34	#line 4472 "NXCDefs.h"
+0	4473	34		setin __constVal1, __SetSensor_7qG2_port_7qG2_000_inline_main, 0
+0	4474	38		setin __constVal32, __SetSensor_7qG2_port_7qG2_000_inline_main, 1
+0	4475	42	#pragma macro 4
+0	4475	42		acquire __ResetSensorMutex
+0	4475	43		mov __ResetSensorPort, __SetSensor_7qG2_port_7qG2_000_inline_main
+0	4475	45		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
+0	4475	47		release __ResetSensorMutex
+0	4167	48	#line 4167 "NXCDefs.h"
+0	4476	48	#line 4476 "NXCDefs.h"
+0	82	48	#line 82 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	83	48	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	84	48		set __SetSensor_7qG2_port_7qG2_000_inline_main, 1
+0	83	51	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	83	51	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	84	51		mov __SetSensor_7qG2_config_7qG2_000_inline_main, __constVal288
+0	4472	53	#line 4472 "NXCDefs.h"
+0	4473	53		setin __constVal1, __SetSensor_7qG2_port_7qG2_000_inline_main, 0
+0	4474	57		setin __constVal32, __SetSensor_7qG2_port_7qG2_000_inline_main, 1
+0	4475	61	#pragma macro 4
+0	4475	61		acquire __ResetSensorMutex
+0	4475	62		mov __ResetSensorPort, __SetSensor_7qG2_port_7qG2_000_inline_main
+0	4475	64		subcall __ResetSensorSubroutine, ____ResetSensorSubroutine_return
+0	4475	66		release __ResetSensorMutex
+0	4179	67	#line 4179 "NXCDefs.h"
+0	4476	67	#line 4476 "NXCDefs.h"
+0	83	67	#line 83 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	85	67	#line 85 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	86	67		subcall __bluetooth_Spawner, __bluetooth_Spawner_return
+0	85	69	#line 85 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+0	86	69		exit -1, -1
 1	5724	0		setin __constVal1, __ResetSensorPort, 5
 1	5726	4		getin __ResetSensorTmp, __ResetSensorPort, 5
 1	5727	8		brtst 5, __SensorStillInvalid, __ResetSensorTmp
@@ -126,7 +128,7 @@ Clump	Line	PC	Source
 2	17	0		mov __CBTCSArgs.Connection, __BTCheck_7qG2_conn_7qG2_000
 2	17	2		syscall 28, __CBTCSArgs
 2	17	5		mov __signed_stack_001BTCheck, __CBTCSArgs.Result
-2	3880	7	#line 3880 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+2	3964	7	#line 3964 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
 2	16	7	#line 16 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
 2	16	7	#line 16 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
 2	17	7		set __D0BTCheck, 0
@@ -179,166 +181,74 @@ Clump	Line	PC	Source
 2	26	60	#line 26 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
 2	27	60		subret __BTCheck_return
 3	28	0	#line 28 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	29	0		set __bluetooth_7qG2_msg_7qG2_000, 2
-3	28	3	#line 28 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	31	3	#line 31 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	32	3	#pragma macro 9
-3	32	3		mov __MRArgs.QueueID, __constVal5
-3	32	5		mov __MRArgs.Remove, __constVal1
-3	32	7		set __RRNTmpVal, 0
-3	32	10		syscall 27, __MRArgs
-3	32	13		unflatten __RRNTmpVal, __RRNErr, __MRArgs.Message, __RRNTmpVal
-3	32	18		mov __bluetooth_7qG2_msg_7qG2_000, __RRNTmpVal
-3	3963	20	#line 3963 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	31	20	#line 31 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	31	20	#line 31 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	34	20	#line 34 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	35	20		mov __signed_stack_001bluetooth, __RRNTmpVal
-3	34	22	#line 34 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	34	22	#line 34 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	35	22		set __D0bluetooth, 1
-3	34	25	#line 34 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	35	25		cmp 4, __D0bluetooth, __signed_stack_001bluetooth, __D0bluetooth
-3	35	29	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	36	29		brtst 4, __ASM_Label_575, __D0bluetooth
-3	35	32	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	36	32		getin __bluetooth_7qG2_ans_7qG2_001, __constVal0, 4
-3	35	36	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	36	36	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	36		set __signed_stack_001bluetooth, 0
-3	36	39	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	36	39	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	39		set __signed_stack_002bluetooth, 0
-3	36	42	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	36	42	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	42		strcat __strbufbluetooth, __constStr0010
-3	36	46	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	46		acquire __TextOutMutex
-3	36	47	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	47		mov __TextOutArgs.Location.X, __signed_stack_001bluetooth
-3	36	49	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	49		mov __TextOutArgs.Location.Y, __signed_stack_002bluetooth
-3	36	51	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	51		set __TextOutArgs.Options, 0
-3	36	54	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	54		mov __TextOutArgs.Text, __strbufbluetooth
-3	36	56	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	56		syscall 13, __TextOutArgs
-3	36	59	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	59		mov __D0bluetooth, __TextOutArgs.Result
-3	36	61	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	61		release __TextOutMutex
-3	36	62	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	37	62	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	38	62		set __Wait_7qG2_ms_7qG2_000_inline_bluetooth, 100
-3	37	65	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	8869	65	#line 8869 "NXCDefs.h"
-3	8870	65		wait2 NA, __Wait_7qG2_ms_7qG2_000_inline_bluetooth
-3	8869	68	#line 8869 "NXCDefs.h"
-3	37	68	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	38	68	#line 38 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	39	68	#pragma macro 7
-3	39	68		add __MWArgs.QueueID, __constVal1, __constVal10
-3	39	72		mov __SRNTmpVal, __bluetooth_7qG2_ans_7qG2_001
-3	39	74		flatten __MWArgs.Message, __SRNTmpVal
-3	39	77		syscall 26, __MWArgs
-3	39	80		mov __D0bluetooth, __MWArgs.Result
-3	4034	82	#line 4034 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	38	82	#line 38 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	38	82	#line 38 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	40	82	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	41	82		jmp __ASM_Label_584
-3	40	84	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	41	84		mov __signed_stack_001bluetooth, __bluetooth_7qG2_msg_7qG2_000
-3	40	86	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	40	86	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	41	86		set __D0bluetooth, 0
-3	40	89	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	41	89		cmp 4, __D0bluetooth, __signed_stack_001bluetooth, __D0bluetooth
-3	41	93	#line 41 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	42	93		brtst 4, __ASM_Label_587, __D0bluetooth
-3	41	96	#line 41 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	42	96		getin __bluetooth_7qG2_ans_7qG2_001, __constVal1, 4
-3	41	100	#line 41 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	42	100	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	100		set __signed_stack_001bluetooth, 0
-3	42	103	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	42	103	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	103		set __signed_stack_002bluetooth, 1
-3	42	106	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	42	106	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	106		strcat __strbufbluetooth, __constStr0011
-3	42	110	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	110		acquire __TextOutMutex
-3	42	111	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	111		mov __TextOutArgs.Location.X, __signed_stack_001bluetooth
-3	42	113	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	113		mov __TextOutArgs.Location.Y, __signed_stack_002bluetooth
-3	42	115	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	115		set __TextOutArgs.Options, 0
-3	42	118	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	118		mov __TextOutArgs.Text, __strbufbluetooth
-3	42	120	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	120		syscall 13, __TextOutArgs
-3	42	123	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	123		mov __D0bluetooth, __TextOutArgs.Result
-3	42	125	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	125		release __TextOutMutex
-3	42	126	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	126	#line 43 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	44	126	#pragma macro 7
-3	44	126		add __MWArgs.QueueID, __constVal1, __constVal10
-3	44	130		mov __SRNTmpVal, __bluetooth_7qG2_ans_7qG2_001
-3	44	132		flatten __MWArgs.Message, __SRNTmpVal
-3	44	135		syscall 26, __MWArgs
-3	44	138		mov __D0bluetooth, __MWArgs.Result
-3	4092	140	#line 4092 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	140	#line 43 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	43	140	#line 43 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	47	140	#line 47 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	48	140		jmp __ASM_Label_594
-3	47	142	#line 47 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	48	142		set __Wait_7qG2_ms_7qG2_000_inline_bluetooth, 100
-3	47	145	#line 47 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	8869	145	#line 8869 "NXCDefs.h"
-3	8870	145		wait2 NA, __Wait_7qG2_ms_7qG2_000_inline_bluetooth
-3	8869	148	#line 8869 "NXCDefs.h"
-3	47	148	#line 47 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	48	148	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	148		set __signed_stack_001bluetooth, 0
-3	48	151	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	48	151	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	151		set __signed_stack_002bluetooth, 2
-3	48	154	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	48	154	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	154		strcat __strbufbluetooth, __constStr0012
-3	48	158	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	158		acquire __TextOutMutex
-3	48	159	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	159		mov __TextOutArgs.Location.X, __signed_stack_001bluetooth
-3	48	161	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	161		mov __TextOutArgs.Location.Y, __signed_stack_002bluetooth
-3	48	163	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	163		set __TextOutArgs.Options, 0
-3	48	166	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	166		mov __TextOutArgs.Text, __strbufbluetooth
-3	48	168	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	168		syscall 13, __TextOutArgs
-3	48	171	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	171		mov __D0bluetooth, __TextOutArgs.Result
-3	48	173	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	49	173		release __TextOutMutex
-3	48	174	#line 48 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	53	174	#line 53 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	53	174	#line 53 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	53	174	#line 53 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-3	54	174		subret __bluetooth_return
-4	68	0	#line 68 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
-4	69	0		subret ____initialize_global_data_return
+3	28	0	#line 28 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	31	0	#line 31 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	32	0		set __D0bluetooth, 1
+3	33	3	#line 33 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	34	3		tst 5, __D0bluetooth, __D0bluetooth
+3	33	6	#line 33 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	34	6		brtst 4, __ASM_Label_574, __D0bluetooth
+3	33	9	#line 33 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	34	9		set __bluetooth_7qG2_ans_7qG2_000, 0
+3	33	12	#line 33 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	33	12	#line 33 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	35	12	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	36	12		set __Wait_7qG2_ms_7qG2_000_inline_bluetooth, 10
+3	35	15	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	8869	15	#line 8869 "NXCDefs.h"
+3	8870	15		wait2 NA, __Wait_7qG2_ms_7qG2_000_inline_bluetooth
+3	8869	18	#line 8869 "NXCDefs.h"
+3	35	18	#line 35 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	36	18	#line 36 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	37	18		getin __D0bluetooth, __constVal0, 4
+3	37	22	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	38	22		tst 5, __D0bluetooth, __D0bluetooth
+3	37	25	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	38	25		brtst 4, __ASM_Label_583, __D0bluetooth
+3	37	28	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	38	28		set __D0bluetooth, 10
+3	37	31	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	38	31		add __bluetooth_7qG2_ans_7qG2_000, __bluetooth_7qG2_ans_7qG2_000, __D0bluetooth
+3	37	35	#line 37 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	39	35	#line 39 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	39	35	#line 39 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	40	35		getin __D0bluetooth, __constVal1, 4
+3	40	39	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	41	39		tst 5, __D0bluetooth, __D0bluetooth
+3	40	42	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	41	42		brtst 4, __ASM_Label_588, __D0bluetooth
+3	40	45	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	41	45		set __D0bluetooth, 1
+3	40	48	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	41	48		add __bluetooth_7qG2_ans_7qG2_000, __bluetooth_7qG2_ans_7qG2_000, __D0bluetooth
+3	40	52	#line 40 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	42	52	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	42	52	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	43	52	#pragma macro 7
+3	43	52		acquire __MWMutex
+3	43	53		add __MWArgs.QueueID, __constVal1, __constVal10
+3	43	57		mov __SRNTmpVal, __bluetooth_7qG2_ans_7qG2_000
+3	43	59		flatten __MWArgs.Message, __SRNTmpVal
+3	43	62		syscall 26, __MWArgs
+3	43	65		mov __D0bluetooth, __MWArgs.Result
+3	43	67		release __MWMutex
+3	4105	68	#line 4105 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	42	68	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	42	68	#line 42 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	77	68	#line 77 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	78	68		jmp __ASM_Label_573
+3	77	70	#line 77 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+3	78	70		exit -1, -1
+4	0	0		subret __bluetooth_Spawner_return
+5	0	0		exit 0, 1
+6	89	0	#line 89 "C:\Users\Henrique\Desktop\SEK\velho\slave.nxc"
+6	90	0		subret ____initialize_global_data_return
 #CLUMPS
 Clump	Name	Offset	File
 0	main	0	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
-1	__ResetSensorSubroutine	57	NXTDefs.h
-2	BTCheck	70	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
-3	bluetooth	132	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
-4	__initialize_global_data	308	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
+1	__ResetSensorSubroutine	72	NXTDefs.h
+2	BTCheck	85	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
+3	bluetooth	147	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
+4	__bluetooth_Returner	220	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
+5	__bluetooth_Spawner	222	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc
+6	__initialize_global_data	225	C:\Users\Henrique\Desktop\SEK\velho\slave.nxc

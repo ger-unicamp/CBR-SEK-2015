@@ -90,41 +90,24 @@ sub BTCheck(int conn)
 //Verificar viabilizacao dessa funcao ser uma task
 task atualizaSensores()
 {
-  SetSensorUltrasonic(IN_4);
-  SetSensorUltrasonic(IN_3);
 	SetSensorColorRed(IN_1);
 	int input = 0;
 	while(1) {
 
 		//Atualiza sensor de toque (Bluetooth)
-    ReceiveRemoteNumber(INBOX,true,input);
-    Wait(10);
+		//Sensor de toque direito
+		SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
+		Wait(10);
+		ReceiveRemoteNumber(INBOX, true, input);
+		if(input > 0) {
+			if(input == 2) {
+				sensores.toque_dir = true;
+			}
+			else
+				sensores.toque_dir = false;
+		}
 
-      switch (input)
-      {
-         case 0:
-              sensores.toque_esq = false;
-              sensores.toque_dir = false;
-              break;
-
-         case 1:
-              sensores.toque_esq = false;
-              sensores.toque_dir = true;
-              break;
-
-         case 10:
-              sensores.toque_esq = true;
-              sensores.toque_dir = false;
-              break;
-
-         case 11:
-              sensores.toque_esq = true;
-              sensores.toque_dir = true;
-              break;
-      }
-
-    /*
-    //Sensor de toque esquerdo
+		//Sensor de toque esquerdo
 		SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_ESQ);
 		Wait(10);
 		ReceiveRemoteNumber(INBOX, true, input)
@@ -135,20 +118,7 @@ task atualizaSensores()
 			else
 				sensores.toque_esq = false;
 		}
-
-    //Sensor de toque direito
-    SendRemoteNumber(BT_CONN, OUTBOX, MSG_SENSOR_DIR);
-		Wait(10);
-		ReceiveRemoteNumber(INBOX, true, input);
-		if(input > 0) {
-			if(input == 2) {
-				sensores.toque_dir = true;
-			}
-			else
-				sensores.toque_dir = false;
-		}*/
-
-  	//Atualiza sensores de cor
+		//Atualiza sensores de cor
 		sensores.cor = 	SENSOR_COR;
 		
 		//Atualiza sensores ultrassonicos 
@@ -178,35 +148,6 @@ void moduloCentral()
 
 }
 
-//Imprime estado atual da struct de sensoriamento
-void imprimeSensores()
-{
- ClearLine(0);
- TextOut(0,0,"Cor:");
- NumOut(40,0,sensores.cor);
- 
-
- ClearLine(10);
- TextOut(0,10,"US Esq:");
- NumOut(40,10,sensores.som_esq);
-
-
- ClearLine(20);
- TextOut(0,20,"US Dir:");
- NumOut(40,20,sensores.som_dir);
- 
-
- ClearLine(30);
- TextOut(0,30,"TQ Esq:");
- NumOut(40,30,sensores.toque_esq);
- 
-
- ClearLine(40);
- TextOut(0,40,"TQ Dir:");
- NumOut(40,40,sensores.toque_dir);
-
-}
-
 task main() {
 
 	estado = 0;
@@ -224,7 +165,6 @@ task main() {
 		girar(DIREITA, 50);
 		girar(ESQUERDA, 50);
 	*/
-	/*
 		if(sensores.toque_esq == true && sensores.toque_dir == true) {
 			TextOut(0,0,"ESQUERDA");
 			TextOut(0,10,"DIREITA");
@@ -242,9 +182,7 @@ task main() {
 			Wait(100);
 			ClearLine(10);
 		}
-    */
-    
-    imprimeSensores();
+
 
 	}
 
