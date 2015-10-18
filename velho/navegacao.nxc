@@ -62,16 +62,16 @@ Sensores sensores;
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
 	if(sentido == FRENTE)
-		OnFwdSync(OUT_AB, potencia, -4);
+		OnFwdSync(OUT_AB, potencia, -3);
 	else
 		OnRevSync(OUT_AB, potencia, 0);
 }
 
 void andarT(int sentido, int potencia, int tempo) {
 	if(sentido == FRENTE)
-		OnFwdReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
+		OnFwdSync(OUT_AB, potencia, -3);
 	else
-		OnRevReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
+		OnRevSync(OUT_AB, potencia, 0);
 
 	Wait(tempo);
 	Off(OUT_AB);
@@ -229,7 +229,7 @@ task main() {
 	sensores.toque_esq = false;
 
 	
-
+	
     girar(DIREITA,60, TEMPO_90_HORARIO);
     Off(OUT_AB);
     Wait(1000);
