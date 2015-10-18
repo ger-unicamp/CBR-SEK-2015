@@ -43,7 +43,7 @@
 #define ESQUERDA 1
 #define DIREITA 0
 #define ANGULO 359	//Fazer medicao
-#define TEMPO_90_HORARIO 1200
+#define TEMPO_90_HORARIO 900
 
 struct Sensores {
 	int cor;
@@ -62,9 +62,9 @@ Sensores sensores;
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
 	if(sentido == FRENTE)
-		OnFwdReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
+		OnFwdSync(OUT_AB, potencia, -4);
 	else
-		OnRevReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
+		OnRevSync(OUT_AB, potencia, 0);
 }
 
 void andarT(int sentido, int potencia, int tempo) {
