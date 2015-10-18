@@ -42,7 +42,8 @@
 #define TRAS 0
 #define ESQUERDA 1
 #define DIREITA 0
-#define ANGULO_CURVA 300	//Fazer medicao
+#define ANGULO 359	//Fazer medicao
+#define TEMPO_90_HORARIO 1200
 
 struct Sensores {
 	int cor;
@@ -61,17 +62,24 @@ Sensores sensores;
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
 	if(sentido == FRENTE)
-		OnFwd(OUT_AB, potencia);
+		OnFwdReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
 	else
-		OnRev(OUT_AB, potencia);
+		OnRevReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
 }
 
+//Direito = B, Esquerdo = A
 //Gira o robo em 90 graus. 
-void girar(int sentido, int potencia) {
-	if(sentido == ESQUERDA)
-		RotateMotor(OUT_B, potencia, ANGULO_CURVA);
-	else
-		RotateMotor(OUT_A, potencia, ANGULO_CURVA);
+void girar(int sentido, int potencia, int tempo) {
+	if(sentido == ESQUERDA) {
+		OnRev(OUT_A, potencia);
+		OnFwd(OUT_B, potencia);
+	}
+	else {
+		OnFwd(OUT_A, potencia);
+		OnRev(OUT_B, potencia);
+	}
+
+	Wait(tempo);
 }
 
 //Definir comunicao bluetooth
@@ -190,59 +198,18 @@ task main() {
 	sensores.toque_dir = false;
 	sensores.toque_esq = false;
 
-	while(1) {
-		/*
-		andar(FRENTE, 50);
-		Wait(1000);
-		andar(TRAS, 50);
-		Wait(1000);
-		girar(DIREITA, 50);
-		girar(ESQUERDA, 50);
-	*/
-	/*
-		if(sensores.toque_esq == true && sensores.toque_dir == true) {
-			TextOut(0,0,"ESQUERDA");
-			TextOut(0,10,"DIREITA");
-			Wait(100);
-			ClearLine(0);
-			ClearLine(10);
-		}
-		else if(sensores.toque_esq == true) {
-			TextOut(0,0,"ESQUERDA");
-			Wait(100);
-			ClearLine(0);
-		}
-		else if(sensores.toque_dir == true) {
-			TextOut(0,10,"DIREITA");
-			Wait(100);
-			ClearLine(10);
-		}
-    */
-    
-    imprimeSensores();
+	
 
-	}
+    girar(DIREITA,60, TEMPO_90_HORARIO);
+    Off(OUT_AB);
+    Wait(1000);
+    andar(FRENTE, 80);
+    Wait(50);
+
+	
 
 
-	/*while(true){
- 
-	 	switch(estado)
-		{
-	  		case MODULOCENTRAL:
-	  			
-	  			break;
-	  		
-	  		case NAVEGACAO:
-	  		
-	  			break;
-	  		
-	  		case VOLTA:
-	  		
-	  			break;
-	  		
-	  	}		
- 	
- 	}*/
+	
 	
 	
 }	
