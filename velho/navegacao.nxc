@@ -30,20 +30,39 @@
 #define INBOX 1				//Caixa de mensagens recebidas
 #define OUTBOX 5			//Caixa de mensagens enviadas
 
-//Definicao de mensagens
-#define MSG_SENSOR_DIR 2
-#define MSG_SENSOR_ESQ 1
-
 //Definicao de Sensores
 #define SENSOR_COR SENSOR_1
+
+//Definicao de cores
+#define COR_PRETO 14 							//Fazer medicao
 
 //Definicao de navegacao
 #define FRENTE 1
 #define TRAS 0
 #define ESQUERDA 1
 #define DIREITA 0
-#define ANGULO 359	//Fazer medicao
-#define TEMPO_90_HORARIO 900
+
+#define ANGULO 359								//Fazer medicao
+#define TEMPO_90_DIREITO 1400  					//Fazer medicao
+#define TEMPO_90_ESQUERDA 1700					//Fazer medicao
+#define POTENCIA 50								//Fazer medicao
+#define LARGURA_MAPA 122						//Fazer medicao
+#define LARGURA_ROBO 32							//Fazer medicao
+
+/*
+	TO-DO LIST
+	- Correcao do movimentio em linha reta do robo usando os dados do ultrasom
+	- Adicionar çodigo para fazer o robo ficar reto quando apenas um sensor de toque estiver ativado.
+*/
+
+/* 
+	Portas
+	- Motor esquerdo = A
+	- Motor direito = B
+	- Sensor cor = 1
+	- Sensor US direito =
+	- Sensor US esquerdo = 
+*/
 
 struct Sensores {
 	int cor;
@@ -59,17 +78,30 @@ struct Sensores {
 int estado;					//Estado da maquina de estados
 Sensores sensores;
 
+
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
+	/*
 	if(sentido == FRENTE)
-		OnFwdSync(OUT_AB, potencia, -3);
+		OnFwdSync(OUT_AB, potencia, -1.7);
 	else
 		OnRevSync(OUT_AB, potencia, 0);
+	*/
+	if(sentido == FRENTE) {
+		OnFwd(OUT_B, potencia);
+		OnFwd(OUT_A, potencia + 9.5);
+		// 10 muuio bom
+	}
+	else {
+		//OnRevReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
+		OnRev(OUT_B, potencia);
+		OnRev(OUT_A, potencia + 9.5);
+	}
 }
 
 void andarT(int sentido, int potencia, int tempo) {
 	if(sentido == FRENTE)
-		OnFwdSync(OUT_AB, potencia, -3);
+		OnFwdSync(OUT_AB, potencia, -1);
 	else
 		OnRevSync(OUT_AB, potencia, 0);
 
@@ -77,19 +109,19 @@ void andarT(int sentido, int potencia, int tempo) {
 	Off(OUT_AB);
 }
 
-//Direito = B, Esquerdo = A
 //Gira o robo em 90 graus. 
-void girar(int sentido, int potencia, int tempo) {
+void girar(int sentido, int potencia) {
 	if(sentido == ESQUERDA) {
 		OnRev(OUT_A, potencia);
 		OnFwd(OUT_B, potencia);
+		Wait(TEMPO_90_ESQUERDA);
 	}
 	else {
 		OnFwd(OUT_A, potencia);
 		OnRev(OUT_B, potencia);
+		Wait(TEMPO_90_DIREITO);
 	}
 
-	Wait(tempo);
 	Off(OUT_AB);
 }
 
@@ -105,44 +137,74 @@ sub BTCheck(int conn)
 	}
 }
 
-//Funcao que checa obstaculos
-//Verificar viabilizacao dessa funcao ser uma task
+//Imprime estado atual da struct de sensoriamento
+void imprimeSensores()
+{
+	 ClearLine(0);
+	 TextOut(0,0,"Cor:");
+	 NumOut(40,0,sensores.cor);
+	 
+
+	 ClearLine(10);
+	 TextOut(0,10,"US Esq:");
+	 NumOut(40,10,sensores.som_esq);
+
+
+	 ClearLine(20);
+	 TextOut(0,20,"US Dir:");
+	 NumOut(40,20,sensores.som_dir);
+	 
+
+	 ClearLine(30);
+	 TextOut(0,30,"TQ Esq:");
+	 NumOut(40,30,sensores.toque_esq);
+	 
+
+	 ClearLine(40);
+	 TextOut(0,40,"TQ Dir:");
+	 NumOut(40,40,sensores.toque_dir);
+
+}
+
+//Funcao que atualiza os valores da struct de sensores.
 task atualizaSensores()
 {
-  SetSensorUltrasonic(IN_4);
-  SetSensorUltrasonic(IN_3);
+	SetSensorUltrasonic(IN_4);
+	SetSensorUltrasonic(IN_3);
 	SetSensorColorRed(IN_1);
 	int input = 0;
+
 	while(1) {
 
 		//Atualiza sensor de toque (Bluetooth)
-    ReceiveRemoteNumber(INBOX,true,input);
-    Wait(10);
+    	imprimeSensores();
+    	ReceiveRemoteNumber(INBOX,true,input);
+    	Wait(10);
 
-      switch (input)
-      {
-         case -1:
-              sensores.toque_esq = false;
-              sensores.toque_dir = false;
-              break;
+	      switch (input)
+	      {
+	         case -1:
+	              sensores.toque_esq = false;
+	              sensores.toque_dir = false;
+	              break;
 
-         case 1:
-              sensores.toque_esq = false;
-              sensores.toque_dir = true;
-              break;
+	         case 1:
+	              sensores.toque_esq = false;
+	              sensores.toque_dir = true;
+	              break;
 
-         case 10:
-              sensores.toque_esq = true;
-              sensores.toque_dir = false;
-              break;
+	         case 10:
+	              sensores.toque_esq = true;
+	              sensores.toque_dir = false;
+	              break;
 
-         case 11:
-              sensores.toque_esq = true;
-              sensores.toque_dir = true;
-              break;
-      }
+	         case 11:
+	              sensores.toque_esq = true;
+	              sensores.toque_dir = true;
+	              break;
+	      }
 
-  	//Atualiza sensores de cor
+  		//Atualiza sensores de cor
 		sensores.cor = 	SENSOR_COR;
 		
 		//Atualiza sensores ultrassonicos 
@@ -151,8 +213,64 @@ task atualizaSensores()
 	}
 }
 
-//Funcao que sai de obstaculos
+// Funcao de navegacao na cratera seguindo paredes
+void navegacaoCrateraParede() {
 
+	int distanciaParede;
+
+	andar(FRENTE, POTENCIA);
+	//2 eh uma constante que representa um erro da medida
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(2000);
+	Off(OUT_AB);
+	girar(DIREITA, POTENCIA);
+	distanciaParede = sensores.som_dir;
+	//70 eh uma constante de margem de erro.
+	andar(FRENTE, POTENCIA);
+	while(sensores.som_dir < distanciaParede + 70) {
+		if(sensores.toque_dir == true && sensores.toque_esq == true) {
+			andarT(TRAS, POTENCIA, 1000);
+			girar(ESQUERDA, POTENCIA);
+			distanciaParede = sensores.som_dir;
+			andar(FRENTE, POTENCIA);
+		}
+	}
+	Off(OUT_AB);
+	girar(DIREITA, POTENCIA);
+
+}
+
+// Funcao de navegacao na cratera 
+void navegacaoCrateraLivre() {
+
+	float iteracoes;
+	int cont;
+	//entra no modulo de cratera
+	andar(FRENTE, POTENCIA);
+	//2 eh uma constante que representa um erro da medida
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(2000);
+	Off(OUT_AB);
+	girar(DIREITA, POTENCIA);
+	andar(FRENTE, POTENCIA);
+	while(sensores.toque_dir == false);
+	while(sensores.toque_esq == false);
+	Off(OUT_AB);
+	andarT(TRAS, POTENCIA, 1000);
+	girar(ESQUERDA, POTENCIA);
+	//Comeco da navegacao em colunas
+	//Usar arredondamento para o calculo abaixo.
+	iteracoes = LARGURA_MAPA / LARGURA_ROBO;
+	
+	for(cont = 0; cont < iteracoes; cont++) {
+		andar(FRENTE, POTENCIA);
+		while(sensores.toque_dir == false);
+		while(sensores.toque_esq == false);
+		andarT(TRAS, POTENCIA, 1000);
+		girar(ESQUERDA, POTENCIA);
+		break;		
+	}
+}
 
 //Modulo Central
 void central()
@@ -163,60 +281,29 @@ void central()
 //Funcao referente ao primeiro estado
 void moduloCentral()
 {
+	//entra no modulo de cratera
 
-	int flag, distanciaInicial;
+	//INCOMPLETO
+	int distanciaInicial;
 
-	andarT(FRENTE, 60, 400);
-	girar(DIREITA, 60, TEMPO_90_HORARIO);	
-	andar(FRENTE, 60);
-	until(sensores.toque_dir == true && sensores.toque_esq == true);
+	//400 eh um numero tempo fixo de locomoca inicial que depende do ambiente, logo deve ser medido
+	andarT(FRENTE, POTENCIA, 400);
+	girar(DIREITA, POTENCIA);	
+	andar(FRENTE, POTENCIA);
+	while(sensores.toque_dir != true && sensores.toque_esq != true);
 	Off(OUT_AB);
-	andarT(TRAS, 60, 100);
-	girar(ESQUERDA, 60, TEMPO_90_ESQUERDA);
+	andarT(TRAS, POTENCIA, 100);
+	girar(ESQUERDA, POTENCIA);
+	//Comeco da navegacao em colunas
 	distanciaInicial = sensores.som_esq;
 	//50 eh uma constante de seguranca para evitar problemas do valor do ultrasom
 	while(sensores.som_esq > distanciaInicial + 50) {
-		andar(FRENTE, 60);
+		andar(FRENTE, POTENCIA);
 		if(sensores.toque_dir == true && sensores.toque_esq == true) {
-			andarT(TRAS, 60, 100);
-			girar(DIREITA, 60, TEMPO_90_DIREITA);
+			andarT(TRAS, POTENCIA, 100);
+			girar(DIREITA, POTENCIA);
 		}
 	} 
-
-	//atualizaSensores();
-	//caminhar reto
-	//Checa o chao para ver se ja esta em outro modulo
-	//Checa se existe mensagem do slave
-	
-
-}
-
-//Imprime estado atual da struct de sensoriamento
-void imprimeSensores()
-{
- ClearLine(0);
- TextOut(0,0,"Cor:");
- NumOut(40,0,sensores.cor);
- 
-
- ClearLine(10);
- TextOut(0,10,"US Esq:");
- NumOut(40,10,sensores.som_esq);
-
-
- ClearLine(20);
- TextOut(0,20,"US Dir:");
- NumOut(40,20,sensores.som_dir);
- 
-
- ClearLine(30);
- TextOut(0,30,"TQ Esq:");
- NumOut(40,30,sensores.toque_esq);
- 
-
- ClearLine(40);
- TextOut(0,40,"TQ Dir:");
- NumOut(40,40,sensores.toque_dir);
 
 }
 
@@ -229,17 +316,11 @@ task main() {
 	sensores.toque_esq = false;
 
 	
-	
-    girar(DIREITA,60, TEMPO_90_HORARIO);
+    /*girar(DIREITA, 60);
     Off(OUT_AB);
     Wait(1000);
     andar(FRENTE, 80);
-    Wait(50);
+    Wait(50);*/
 
-	
-
-
-	
-	
-	
+    navegacaoCrateraLivre();
 }	
