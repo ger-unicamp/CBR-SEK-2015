@@ -23,19 +23,19 @@ Sensores sensores;
 // potencias sempre de 0 a 100
 // para setar a potencia do motor, basta chamar setMotorSpeed uma vez!
 
+//Sensoriamento
 
 //Rotina que atualiza sensores
 task atualizaSensores()
 {
-	while(1){
-	//Atualiza sensores de cor
-	//sensores.sensor_cor_1 = getColorHue(S2);
-	sensores.sensor_cor_2 = getColorName(S1);
+		while(1){
+			//Atualiza sensores de cor
+			//sensores.sensor_cor_1 = getColorName(S2);
+			sensores.sensor_cor_2 = getColorName(S1);
 
-	//Atualiza sensor US
-	sensores.sensor_us = getUSDistance(S4);
-}
-
+		//Atualiza sensor US
+		sensores.sensor_us = getUSDistance(S4);
+		}
 }
 
 //Mostra no LCD os estados atuais dos sensores
@@ -46,14 +46,13 @@ void imprimeSensores()
 	//	displayBigTextLine(8, "Cor 1: %d",sensores.sensor_cor_1);
 }
 
-//Desloca o robo linearmente
-// Sentido = uma das constantes
+//Atuacao
+
 void setaMotor(int sentido, int potencia)
 {
    setMotorSpeed (motorB, potencia*sentido);
-   setMotorSpeed (motorC, potencia*sentido);
+   setMotorSpeed (motorA, potencia*sentido);
 }
-
 
 // Gira o robo por degreeDado graus
 void giraRobo(int sentido, long degreeDado)
@@ -65,7 +64,7 @@ void giraRobo(int sentido, long degreeDado)
     delay(200);
 
     setMotorSpeed (motorB,-30*sentido);
-		setMotorSpeed (motorC, 30*sentido);
+		setMotorSpeed (motorA, 30*sentido);
 
     while(getGyroHeading(S3) < degreeDado*sentido)
     {
@@ -75,7 +74,7 @@ void giraRobo(int sentido, long degreeDado)
     setaMotor(DESLIGA, 0);
 }
 
-//void RecolheBonecoComPa ()
+void abrePa
 
 task main()
 {
@@ -85,13 +84,8 @@ task main()
 
 	while (1){
 
-		setaMotor(FRENTE,10);
+		setaMotor(FRENTE,50);
 
-		if(sensores.sensor_cor_2)
-		{
-			setaMotor(DESLIGA,0);
-			switch (sensores.sensor_cor_2)
-		}
 
 	}
 }
