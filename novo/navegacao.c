@@ -13,7 +13,6 @@
 struct Sensores{
 	int sensor_cor_1;
 	int sensor_cor_2;
-
 	int sensor_us;
 };
 
@@ -43,7 +42,7 @@ void imprimeSensores()
 {
 		displayBigTextLine(0, "US: %d",sensores.sensor_us);
 		displayBigTextLine(4, "Cor 2: %d",sensores.sensor_cor_2);
-	//	displayBigTextLine(8, "Cor 1: %d",sensores.sensor_cor_1);
+		displayBigTextLine(8, "Cor 1: %d",sensores.sensor_cor_1);
 }
 
 //Atuacao
@@ -74,7 +73,6 @@ void giraRobo(int sentido, long degreeDado)
     setaMotor(DESLIGA, 0);
 }
 
-void abrePa
 
 task main()
 {
@@ -82,9 +80,28 @@ task main()
 
 	delay(200);
 
+
+
 	while (1){
 
-		setaMotor(FRENTE,50);
+	if(sensores.sensor_cor_2 == 0)
+	setaMotor(FRENTE,30);
+
+	if(sensores.sensor_cor_2 == 1)
+	{
+		delay(300);
+		setaMotor(DESLIGA,0);
+		delay(1000);
+		if(sensores.sensor_cor_2 == 1)
+		{
+			moveMotorTarget(MotorC, 90, 20);
+  		delay(1000);
+		}
+
+		while(1)
+			setaMotor(FRENTE,30);
+	}
+
 
 
 	}
