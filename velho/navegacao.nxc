@@ -49,6 +49,8 @@
 #define LARGURA_MAPA 122						//Fazer medicao
 #define LARGURA_ROBO 32							//Fazer medicao
 
+#define TEMPO_ENTRADA 2000
+
 /*
 	TO-DO LIST
 	- Correcao do movimentio em linha reta do robo usando os dados do ultrasom
@@ -249,12 +251,14 @@ void navegacaoCrateraLivre() {
 	andar(FRENTE, POTENCIA);
 	//2 eh uma constante que representa um erro da medida
 	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
-	Wait(2000);
+	Wait(TEMPO_ENTRADA);
 	Off(OUT_AB);
-	girar(DIREITA, POTENCIA);
+	Wait(400);
+	girar(DIREITA, POTENCIA); // Quanto tempo ele gira? 
+	Wait(400);
 	andar(FRENTE, POTENCIA);
-	while(sensores.toque_dir == false);
-	while(sensores.toque_esq == false);
+	while(sensores.toque_dir == false || sensores.toque_esq == false);
+	// while(sensores.toque_esq == false);
 	Off(OUT_AB);
 	andarT(TRAS, POTENCIA, 1000);
 	girar(ESQUERDA, POTENCIA);
