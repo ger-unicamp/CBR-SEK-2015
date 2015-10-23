@@ -175,6 +175,33 @@ void imprimeSensores()
 
 }
 
+void checarImovel() {
+	int usDir[5], usEsq[5], i, aux1, aux2, flagD = 0, flagE = 0;
+
+	for(i = 0; i < 5; i++) {
+		usDir[i] = sensores.som_dir;
+		usEsq[i] = sensores.som_esq;
+		Wait(50);
+	}
+	
+	aux1 = usDir[0];
+	aux2 = usEsq[0];
+	for(i = 1; i < 5; i++) {
+		 if(usDir[i] > aux1 + 1 || usDir[i] < aux1 - 1) {
+		 	flagD = 1;
+		 	break;
+		 }
+		 if(usEsq[i] > aux1 + 1 || usEsq[i] < aux1 - 1) {
+		 	flagE = 1;
+		 	break;
+		 }
+	}
+	if(flagD == 1 || flagE == 1)
+		return false;
+	return true;
+
+}
+
 //Funcao que atualiza os valores da struct de sensores.
 task atualizaSensores()
 {
@@ -225,7 +252,7 @@ task atualizaSensores()
 // Funcao de navegacao na cratera seguindo paredes
 void navegacaoCrateraParede() {
 
-	int distanciaParede;
+	int distanciaParede, sentidoHorario = 1;
 
 	andar(FRENTE, POTENCIA);
 	//2 eh uma constante que representa um erro da medida
@@ -235,13 +262,37 @@ void navegacaoCrateraParede() {
 	girar(DIREITA, POTENCIA);
 	distanciaParede = sensores.som_dir;
 	//70 eh uma constante de margem de erro.
+	// procurar maneira de controlar qual sensor US deve ser consultado dentro do while
 	andar(FRENTE, POTENCIA);
-	while(sensores.som_dir < distanciaParede + 70) {
+	while(sensores.som_dir < distanciaParede + 50) {
 		if(sensores.toque_dir == true && sensores.toque_esq == true) {
-			andarT(TRAS, POTENCIA, 1000);
-			girar(ESQUERDA, POTENCIA);
-			distanciaParede = sensores.som_dir;
-			andar(FRENTE, POTENCIA);
+			if(horario == 1) {
+				andarT(TRAS, POTENCIA, 1000);
+				girar(ESQUERDA, POTENCIA);
+				distanciaParede = sensores.som_dir;
+				andar(FRENTE, POTENCIA);
+			}
+			else {
+				andarT(TRAS, POTENCIA, 1000);
+				girar(DIREITA, POTENCIA);
+				distanciaParede = sensores.som_esq;
+				andar(FRENTE, POTENCIA);
+			}
+		}
+		// ------------------------ Testar essa parte ---------------
+		else if(checarImovel() == true) {
+			if(sensores.toque_esq == true) {
+				Off(MOTOR_ESQ);
+				OnFwd(MOTOR_DIR, POTENCIA);
+			}
+			else {
+				Off(MOTOR_DIR);
+				OnFwd(MOTOR_ESQ, POTENCIA);
+			}
+		}
+		// ----------------------------------------------------------
+		else if(sensores.cor > COR_PRETO - 2 && sensores.cor < COR_PRETO + 2) {
+
 		}
 	}
 	Off(OUT_AB);
@@ -261,7 +312,7 @@ void navegacaoCrateraLivre() {
 	Wait(TEMPO_ENTRADA);
 	Off(OUT_AB);
 	Wait(400);
-	girar(DIREITA, POTENCIA); // Quanto tempo ele gira? 
+	girar(DIREITA, POTENCIA); 
 	Wait(400);
 	andar(FRENTE, POTENCIA);
 	while(sensores.toque_dir == false && sensores.toque_esq == false);
