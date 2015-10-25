@@ -45,6 +45,8 @@
 #define ANGULO 359								//Fazer medicao
 #define TEMPO_90_DIREITO 900 					//Fazer medicao
 #define TEMPO_90_ESQUERDA 1500					//Fazer medicao
+#define TEMPO_135_ESQUERDA 2000
+#define TEMPO_135_DIREITO 1800
 #define POTENCIA_DIR 50							//Fazer medicao
 #define POTENCIA_ESQ 50
 #define POTENCIA 50
@@ -57,6 +59,11 @@
 #define MOTOR_ESQ OUT_A
 #define MOTOR_DIR OUT_B
 #define MOTORES OUT_AB
+
+/* O quanto o sensor ultrassonico pode considerar uma parede como sendo proxima */
+#define LIMIAR_PERTO 10
+#define LIMIAR_LONGE 100
+#define LIMIAR_DIAGONAL 250
 
 /*
 	TO-DO LIST
@@ -119,20 +126,22 @@ void andarT(int sentido, int potencia, int tempo) {
 }
 
 //Gira o robo em 90 graus. 
-void girar(int sentido, int potencia) {
+void girar(int sentido, int potencia, int tempo) {
 	if(sentido == ESQUERDA) {
 		OnRev(MOTOR_ESQ, potencia);
 		OnFwd(MOTOR_DIR, potencia);
-		Wait(TEMPO_90_ESQUERDA);
+		Wait(tempo);
 	}
 	else {
 		OnFwd(MOTOR_ESQ, potencia);
 		OnRev(MOTOR_DIR, potencia);
-		Wait(TEMPO_90_DIREITO);
+		Wait(tempo);
 	}
 
 	Off(MOTORES);
 }
+
+
 
 //Definir comunicao bluetooth
 sub BTCheck(int conn)
@@ -259,7 +268,7 @@ void navegacaoCrateraParede() {
 	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
 	Wait(2000);
 	Off(OUT_AB);
-	girar(DIREITA, POTENCIA);
+	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 	distanciaParede = sensores.som_dir;
 	//70 eh uma constante de margem de erro.
 	// procurar maneira de controlar qual sensor US deve ser consultado dentro do while
@@ -268,13 +277,13 @@ void navegacaoCrateraParede() {
 		if(sensores.toque_dir == true && sensores.toque_esq == true) {
 			if(horario == 1) {
 				andarT(TRAS, POTENCIA, 1000);
-				girar(ESQUERDA, POTENCIA);
+				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 				distanciaParede = sensores.som_dir;
 				andar(FRENTE, POTENCIA);
 			}
 			else {
 				andarT(TRAS, POTENCIA, 1000);
-				girar(DIREITA, POTENCIA);
+				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 				distanciaParede = sensores.som_esq;
 				andar(FRENTE, POTENCIA);
 			}
@@ -296,7 +305,7 @@ void navegacaoCrateraParede() {
 		}
 	}
 	Off(OUT_AB);
-	girar(DIREITA, POTENCIA);
+	girar(DIREITA, POTENCI, TEMPO_90_DIREITO);
 
 }
 
@@ -312,14 +321,14 @@ void navegacaoCrateraLivre() {
 	Wait(TEMPO_ENTRADA);
 	Off(OUT_AB);
 	Wait(400);
-	girar(DIREITA, POTENCIA); 
+	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO); 
 	Wait(400);
 	andar(FRENTE, POTENCIA);
 	while(sensores.toque_dir == false && sensores.toque_esq == false);
 	// while(sensores.toque_esq == false);
-	Off(OUT_AB);
+	Off(MOTORES);
 	andarT(TRAS, POTENCIA, TEMPO_TRAS);
-	girar(ESQUERDA, POTENCIA);
+	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 	//Comeco da navegacao em colunas
 	//Usar arredondamento para o calculo abaixo.
 	iteracoes = LARGURA_MAPA / LARGURA_ROBO;
@@ -329,7 +338,7 @@ void navegacaoCrateraLivre() {
 		while(sensores.toque_dir == false && sensores.toque_esq == false);
 		// while(sensores.toque_esq == false);
 		andarT(TRAS, POTENCIA, 1000);
-		girar(ESQUERDA, POTENCIA);
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 		break;		
 	}
 }
@@ -350,12 +359,12 @@ void moduloCentral()
 
 	//400 eh um numero tempo fixo de locomoca inicial que depende do ambiente, logo deve ser medido
 	andarT(FRENTE, POTENCIA, 400);
-	girar(DIREITA, POTENCIA);	
+	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);	
 	andar(FRENTE, POTENCIA);
 	while(sensores.toque_dir != true && sensores.toque_esq != true);
 	Off(OUT_AB);
 	andarT(TRAS, POTENCIA, 100);
-	girar(ESQUERDA, POTENCIA);
+	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 	//Comeco da navegacao em colunas
 	distanciaInicial = sensores.som_esq;
 	//50 eh uma constante de seguranca para evitar problemas do valor do ultrasom
@@ -363,9 +372,73 @@ void moduloCentral()
 		andar(FRENTE, POTENCIA);
 		if(sensores.toque_dir == true && sensores.toque_esq == true) {
 			andarT(TRAS, POTENCIA, 100);
-			girar(DIREITA, POTENCIA);
+			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 		}
 	} 
+
+}
+
+void navegacaoLabirinto() {
+
+	bool dentroDoLabirinto = true;
+	bool paredeDiagonal = false;
+	
+	int tempo_diagonal; //conta quanto tempo ele esta vendo pelo sensor ultrassonico e determina se eh uma parede na diagonal
+
+	/* Passos a ser repetidos no labirinto: o robo deve seguir o mais proximo das paredes em sentido horario *
+	* Para tanto, ele deve seguir reto ateh encontrar uma parede, e perceber se a distancia do sensor esquerdo diminui 
+	* (parede na diagonal) */
+	while(dentroDoLabirinto) {
+
+		tempo_diagonal = 0;
+
+		andar(FRENTE, POTENCIA);
+		/* Determina se encontrou uma parede na diagonal */
+		while(sensores.cor < COR_PRETO - 9 && sensores.cor > COR_PRETO + 9 && paredeDiagonal == false && sensores.som_dir < LIMIAR_PERTO) {
+			if(sensores.som_esq < LIMIAR_PERTO) {
+				tempo_diagonal++;
+
+				if(tempo_diagonal > LIMIAR_DIAGONAL) {
+					paredeDiagonal = true;
+				}
+			}
+		}
+
+		/* Se ao lado dele a parede eh diagonal */
+		if(paredeDiagonal == true) {
+			girar(ESQUERDA, POTENCIA, TEMPO_135_ESQUERDA);
+		}
+		/* Se a parede nao for diagonal */
+		else {
+
+			/* Se houver uma abertura a direita dele */
+			if(sensores.som_dir > LIMIAR_PERTO) {				
+				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+			}
+			else {
+				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+			}
+			
+		}
+
+		andar(FRENTE, POTENCIA);
+		Wait(TEMPO_ENTRADA);
+		
+		while((sensores.cor < COR_PRETO - 9 && sensores.cor > COR_PRETO + 9) && sensores.som_dir < LIMIAR_PERTO) {
+
+		}
+
+		andar(FRENTE, POTENCIA);
+		Wait(TEMPO_ENTRADA);
+		
+
+	}
+
+	
+
+
+
+
 
 }
 
