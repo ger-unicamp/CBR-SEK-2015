@@ -60,7 +60,7 @@
 #define POTENCIA 50								//Fazer medicao
 
 //Constantes do mapa
-#define COLUNAS 4 								//Definir na horas (nmero de colunas navegaveis)
+#define COLUNAS 3 								//Definir na horas (nmero de colunas navegaveis)
 #define TEMPO_ENTRADA 2000
 #define TEMPO_TRAS 750
 
@@ -309,17 +309,21 @@ void navegacaoCrateraLivre() {
 	while(1) {
 		if(andando == 0) {
 			andar(FRENTE, POTENCIA);
+			andando = 1;
 		}
 		else if(andando == 1) {
 			if((sensores.toque_dir == true && sensores.toque_esq == true) || (sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9)) {
-				girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
+				andarT(TRAS, POTENCIA, TEMPO_TRAS);
+				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+				andarT(FRENTE, POTENCIA, TEMPO_ENTRE_COLUNAS);
+				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 				andar(FRENTE, POTENCIA);
 				andando = 2;
 			}
  		}
 		else { // andando == 2
 			if(sensores.toque_dir == true && sensores.toque_esq == true) {
-				andarT(FRENTE, POTENCIA, TEMPO_TRAS);
+				andarT(TRAS, POTENCIA, TEMPO_TRAS);
 				cont++;
 				if(cont != COLUNAS) {
 					if(LADO_COMECAR == 0) {
@@ -334,12 +338,14 @@ void navegacaoCrateraLivre() {
 					}
 					andando = 0;
 				}
-				else
+				else {
 					break;
+				}
 			}
 		}
 	}
 	
+	//Anda do fim do mapa ate a saida.
 	if(LADO_COMECAR == 0) {
 		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 		andar(FRENTE, POTENCIA);
@@ -414,5 +420,5 @@ task main() {
     andar(FRENTE, 80);
     Wait(50);*/
 
-    navegacaoLabirinto();
+    navegacaoCrateraLivre();
 }	
