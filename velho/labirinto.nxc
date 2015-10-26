@@ -1,0 +1,358 @@
+//Codigo Master
+
+//Opcao de estrategia:
+/*Robo A (o que vai entrar em todos os modulos) algoritmo para percorrer todos
+  os modulos:
+  anda distancia fixa pra frente (sair do pequeno modulo onde o robo inicia)
+  
+  vira a esquerda (o lado e arbitrario , entretanto mudando o sentido que o robo
+  vai circular mudaremos as proximas direçoes para virar)
+  
+  acelera ate os 2 sensores de toque serem ativados , entao vire a direita
+  
+  quando o sensor ultrasonico parar de detectar parede "tenta entrar"(verifica 
+  a linha preta no chao ou nao)
+  
+  ao sair do modulo != do central :
+  acelera distancia fixa , retorna distancia fixa de re , vira 180 graus
+  e acha novamente a linha preta (ou seja achou a entrada dnv)
+  
+  volta a percorrer o modulo inicial virando para direita.
+  */
+
+//Definicao dos Estados
+#define MODULOCENTRAL 0		//Quando o robo se encontra no modulo central
+#define NAVEGACAO 1			//Quando se encontra no labirinto ou no buraco
+#define VOLTA 2				//Voltando para o modulo central
+
+//Definicao de comunicacao
+#define BT_CONN 1			//Canal de comunicacao Bluetooth
+#define INBOX 1				//Caixa de mensagens recebidas
+#define OUTBOX 5			//Caixa de mensagens enviadas
+
+//Definicao de Sensores
+#define SENSOR_COR SENSOR_4
+
+//Definicao de cores
+#define COR_PRETO 14 							//Fazer medicao
+
+//Definicao de navegacao
+#define FRENTE 1
+#define TRAS 0
+#define ESQUERDA 1
+#define DIREITA 0
+
+
+#define TEMPO_90_DIREITO 1000					//Fazer medicao
+#define TEMPO_90_ESQUERDA 900					//Fazer medicao
+#define TEMPO_135_ESQUERDA 2000
+#define TEMPO_135_DIREITO 1800
+#define TEMPO_180_ESQUERDA 1900 //CHute: fazer medicao
+#define TEMPO_180_DIREITA 2000  //Chute: fazer medicao
+
+// Constantes dos motores
+#define MOTOR_ESQ OUT_A
+#define MOTOR_DIR OUT_B
+#define MOTORES OUT_AB
+
+#define POTENCIA_DIR 50							//Fazer medicao
+#define POTENCIA_ESQ 50							//Fazer medicao
+#define POTENCIA 50								//Fazer medicao
+
+//Constantes do mapa
+#define COLUNAS 4 								//Definir na horas (nmero de colunas navegaveis)
+#define TEMPO_ENTRADA 2000
+#define TEMPO_TRAS 750
+
+//COnstantes do modulo da caverna
+#define TEMPO_COLUNA 5000
+#define TEMPO_ENTRE_COLUNAS 200
+#define LADO_COMECAR 0
+
+#define MOTOR_ESQ OUT_A
+#define MOTOR_DIR OUT_B
+#define MOTORES OUT_AB
+
+/* O quanto o sensor ultrassonico pode considerar uma parede como sendo proxima */
+#define LIMIAR_PERTO 10
+#define LIMIAR_LONGE 100
+#define LIMIAR_DIAGONAL 250
+
+
+/*
+	TO-DO LIST
+	- Correcao do movimento em linha reta do robo usando os dados do ultrasom
+	- Adicionar çodigo para fazer o robo ficar reto quando apenas um sensor de toque estiver ativado.
+*/
+
+/* 
+	Portas
+	- Motor esquerdo = A
+	- Motor direito = B
+	- Sensor cor = 4
+	- Sensor US direito = 1
+	- Sensor US esquerdo = 2
+*/
+
+struct Sensores {
+	int cor;
+	
+	int som_esq;
+	int som_dir;
+	
+	bool toque_esq;
+	bool toque_dir;
+};
+
+//Variaveis globais
+int estado;					//Estado da maquina de estados
+Sensores sensores;
+
+
+//Move o robo em linha reta para frente ou para tras.
+void andar(int sentido, int potencia) {
+	if(sentido == FRENTE) {
+		OnFwd(MOTOR_DIR, potencia);
+		OnFwd(MOTOR_ESQ, potencia + 9.7);
+	}
+	else {
+		OnRev(MOTOR_DIR, potencia);
+		OnRev(MOTOR_ESQ, potencia);
+	}
+}
+
+void andarT(int sentido, int potencia, int tempo) {
+	if(sentido == FRENTE) {
+		OnFwd(MOTOR_DIR, potencia);
+		OnFwd(MOTOR_ESQ, potencia + 9.7);
+	}
+	else {
+		OnRev(MOTOR_DIR, potencia);
+		OnRev(MOTOR_ESQ, potencia);
+	}
+
+	Wait(tempo);
+	Off(MOTORES);
+}
+
+//Gira o robo em 90 graus. 
+void girar(int sentido, int potencia, int tempo) {
+	if(sentido == ESQUERDA) {
+		OnRev(MOTOR_ESQ, potencia);
+		OnFwd(MOTOR_DIR, potencia);
+		Wait(tempo);
+	}
+	else {
+		OnFwd(MOTOR_ESQ, potencia);
+		OnRev(MOTOR_DIR, potencia);
+		Wait(tempo);
+	}
+
+	Off(MOTORES);
+}
+
+
+
+//Definir comunicao bluetooth
+sub BTCheck(int conn)
+{
+	//Checa comunicação bluetooth
+	if(!BluetoothStatus(conn)==NO_ERR)
+	{
+		TextOut(5, 0, "ERROR BT");
+		Wait(1000);
+		Stop(true);
+	}
+}
+
+//Imprime estado atual da struct de sensoriamento
+void imprimeSensores()
+{
+	 ClearLine(0);
+	 TextOut(0,0,"Cor:");
+	 NumOut(40,0,sensores.cor);
+	 
+
+	 ClearLine(10);
+	 TextOut(0,10,"US Esq:");
+	 NumOut(40,10,sensores.som_esq);
+
+
+	 ClearLine(20);
+	 TextOut(0,20,"US Dir:");
+	 NumOut(40,20,sensores.som_dir);
+	 
+
+	 ClearLine(30);
+	 TextOut(0,30,"TQ Esq:");
+	 NumOut(40,30,sensores.toque_esq);
+	 
+
+	 ClearLine(40);
+	 TextOut(0,40,"TQ Dir:");
+	 NumOut(40,40,sensores.toque_dir);
+
+}
+
+/* Funcao pra checar se o robo esta imovel. Tem problemas porque ela pode retornar que o robo esta parado quando
+na verda nao esta. Isso acontece quando o robo esta andando reto. */
+bool checarImovel() {
+	int usDir[5], usEsq[5], i, aux1, aux2, flagD = 0, flagE = 0;
+
+	for(i = 0; i < 5; i++) {
+		usDir[i] = sensores.som_dir;
+		usEsq[i] = sensores.som_esq;
+		Wait(300);
+	}
+	
+	aux1 = usDir[0];
+	aux2 = usEsq[0];
+	for(i = 1; i < 5; i++) {
+		 if(usDir[i] != aux1) {
+		 	flagD = 1;
+		 	break;
+		 }
+		 if(usEsq[i] != aux2) {
+		 	flagE = 1;
+		 	break;
+		 }
+	}
+	NumOut(40,50,flagD);
+	NumOut(50,50,flagE);
+	if(flagD == 1 || flagE == 1)
+		return false;
+	else
+		return true;
+	
+
+}
+
+//Funcao que atualiza os valores da struct de sensores.
+task atualizaSensores()
+{
+	SetSensorUltrasonic(IN_1);
+	SetSensorUltrasonic(IN_2);
+	SetSensorColorRed(IN_4);
+	int input = 0;
+
+	while(1) {
+
+		//Atualiza sensor de toque (Bluetooth)
+    	imprimeSensores();
+    	ReceiveRemoteNumber(INBOX,true,input);
+    	Wait(10);
+
+	      switch (input)
+	      {
+	         case -1:
+	              sensores.toque_esq = false;
+	              sensores.toque_dir = false;
+	              break;
+
+	         case 1:
+	              sensores.toque_esq = false;
+	              sensores.toque_dir = true;
+	              break;
+
+	         case 10:
+	              sensores.toque_esq = true;
+	              sensores.toque_dir = false;
+	              break;
+
+	         case 11:
+	              sensores.toque_esq = true;
+	              sensores.toque_dir = true;
+	              break;
+	      }
+
+  		//Atualiza sensores de cor
+		sensores.cor = 	SENSOR_COR;
+		
+		//Atualiza sensores ultrassonicos 
+		sensores.som_dir = SensorUS(IN_1);
+		sensores.som_esq = SensorUS(IN_2);
+	}
+}
+
+
+
+void navegacaoLabirinto() {
+
+	bool dentroDoLabirinto = true;
+	bool paredeDiagonal = false;
+	
+	int tempo_diagonal, i; //conta quanto tempo ele esta vendo pelo sensor ultrassonico e determina se eh uma parede na diagonal
+
+	/* Passos a ser repetidos no labirinto: o robo deve seguir o mais proximo das paredes em sentido horario *
+	* Para tanto, ele deve seguir reto ateh encontrar uma parede, e perceber se a distancia do sensor esquerdo diminui 
+	* (parede na diagonal) */
+	while(dentroDoLabirinto) {
+
+		tempo_diagonal = 0;
+
+		andar(FRENTE, POTENCIA);
+		/* Determina se encontrou uma parede na diagonal */
+		while((sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9) && paredeDiagonal == false && sensores.som_dir < LIMIAR_PERTO) {
+			if(sensores.som_esq < LIMIAR_PERTO) {
+				tempo_diagonal++;
+
+				if(tempo_diagonal > LIMIAR_DIAGONAL) {
+					paredeDiagonal = true;
+				}
+			}
+		}
+
+		Off(MOTORES);
+		Wait(100);
+
+		/* Primeiro checa se ha um espaco na direita */
+		if(sensores.som_dir > LIMIAR_PERTO) { 
+			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);			
+			andar(FRENTE, POTENCIA);
+
+			for(i = 0; i < TEMPO_ENTRADA * 100; i++) { // alterar o valor da constante para o tempo que se leva para passar de uma entrada
+				if((sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9)) {
+					dentroDoLabirinto = false;
+				}
+			}
+			
+		}
+		else {
+
+			/* Se ao lado dele a parede eh diagonal */
+			if(paredeDiagonal == true) {
+				andarT(TRAS, POTENCIA, 450);
+				girar(ESQUERDA, POTENCIA, TEMPO_135_ESQUERDA);
+
+			}
+			/* Se a parede nao for diagonal */
+			else {
+				andarT(TRAS, POTENCIA, 450);
+				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+				
+			}		
+
+		}	
+
+	}
+
+	moduloCentral();
+}
+
+task main() {
+
+	estado = 0;
+	BTCheck(BT_CONN);
+	StartTask(atualizaSensores);
+	sensores.toque_dir = false;
+	sensores.toque_esq = false;
+
+	
+    /*girar(DIREITA, 60);
+    Off(OUT_AB);
+    Wait(1000);
+    andar(FRENTE, 80);
+    Wait(50);*/
+
+    navegacaoLabirinto();
+}	
