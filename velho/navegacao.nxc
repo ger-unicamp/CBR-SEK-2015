@@ -467,6 +467,8 @@ void navegacaoLabirinto() {
 		}	
 
 	}
+
+	moduloCentral();
 }
 
 task main() {
@@ -484,5 +486,5 @@ task main() {
     andar(FRENTE, 80);
     Wait(50);*/
 
-    navegacaoCrateraParede();
+    navegacaoLabirinto();
 }	
