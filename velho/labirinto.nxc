@@ -76,7 +76,7 @@
 /* O quanto o sensor ultrassonico pode considerar uma parede como sendo proxima */
 #define LIMIAR_PERTO 10
 #define LIMIAR_LONGE 100
-#define LIMIAR_DIAGONAL 250
+#define LIMIAR_DIAGONAL 200000
 
 
 /*
@@ -298,6 +298,7 @@ void navegacaoLabirinto() {
 
 				if(tempo_diagonal > LIMIAR_DIAGONAL) {
 					paredeDiagonal = true;
+					tempo_diagonal = 0;
 				}
 			}
 		}
@@ -336,7 +337,7 @@ void navegacaoLabirinto() {
 
 	}
 
-	moduloCentral();
+	
 }
 
 task main() {
