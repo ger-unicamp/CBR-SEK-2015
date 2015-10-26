@@ -468,7 +468,7 @@ void navegacaoLabirinto() {
 
 		andar(FRENTE, POTENCIA);
 		/* Determina se encontrou uma parede na diagonal */
-		while(sensores.cor < COR_PRETO - 9 && sensores.cor > COR_PRETO + 9 && paredeDiagonal == false && sensores.som_dir < LIMIAR_PERTO) {
+		while((sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9) && paredeDiagonal == false && sensores.som_dir < LIMIAR_PERTO) {
 			if(sensores.som_esq < LIMIAR_PERTO) {
 				tempo_diagonal++;
 
@@ -478,37 +478,39 @@ void navegacaoLabirinto() {
 			}
 		}
 
-		/* Se ao lado dele a parede eh diagonal */
-		if(paredeDiagonal == true) {
-			girar(ESQUERDA, POTENCIA, TEMPO_135_ESQUERDA);
-		}
-		/* Se a parede nao for diagonal */
-		else {
+		off(MOTORES);
+		Wait(100);
 
-			/* Se houver uma abertura a direita dele */
-			if(sensores.som_dir > LIMIAR_PERTO) {				
-				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
-			}
-			else {
-				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+		/* Primeiro checa se ha um espaco na direita */
+		if(sensores.som_dir > LIMIAR_PERTO) { 
+			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);			
+			andar(FRENTE, POTENCIA);
+
+			for(i = 0; i < TEMPO_ENTRADA * 100; i++) { // alterar o valor da constante para o tempo que se leva para passar de uma entrada
+				if((sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9)) {
+					dentroDoLabirinto = false;
+				}
 			}
 			
 		}
+		else {
 
-		andar(FRENTE, POTENCIA);
-		Wait(TEMPO_ENTRADA);
-		
-		
-		
+			/* Se ao lado dele a parede eh diagonal */
+			if(paredeDiagonal == true) {
+				andarT(TRAS, POTENCIA, 450);
+				girar(ESQUERDA, POTENCIA, TEMPO_135_ESQUERDA);
+
+			}
+			/* Se a parede nao for diagonal */
+			else {
+				andarT(TRAS, POTENCIA, 450);
+				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+				
+			}		
+
+		}	
 
 	}
-
-	
-
-
-
-
-
 }
 
 task main() {
