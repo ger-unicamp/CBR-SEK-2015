@@ -316,7 +316,7 @@ void navegacaoCrateraParede() {
 				andar(FRENTE, POTENCIA);
 			}
 		}
-		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
+		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {} {
 			girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
 			Wait(200);
 			sentidoHorario = 0;
@@ -332,10 +332,10 @@ void navegacaoCrateraParede() {
 // Funcao de navegacao na cratera (nao testei ainda, fiquem a vontade.)
 void navegacaoCrateraLivre() {
 
-	int cont, sentido;
-	//entra no modulo de cratera
+	int cont = 0, andando = 0, distanciaParede;
+	
+	//entrada no modulo de cratera
 	andar(FRENTE, POTENCIA);
-	//2 eh uma constante que representa um erro da medida
 	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
 	Wait(TEMPO_ENTRADA);
 	Off(MOTORES);
@@ -350,9 +350,7 @@ void navegacaoCrateraLivre() {
 	andar(FRENTE, POTENCIA);
 	
 	//Esses 2 whiles estao certos. O jeito anterior dava margem a apenas um dos sensores ser ativado e o outro nao.
-	while(sensores.toque_dir == false);
-	while(sensores.toque_esq == false);
-	
+	while(sensores.toque_dir == false || sensores.toque_esq == false);
 	Off(MOTORES);
 	andarT(TRAS, POTENCIA, TEMPO_TRAS);
 
@@ -362,20 +360,66 @@ void navegacaoCrateraLivre() {
 		girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
 	
 	//Comeco da navegacao em colunas
-	for(cont = 0; cont < COLUNAS; cont++) {
-		
-		if(LADO_COMECAR == 0) 
-
+	while(1) {
+		if(andando == 0) {
+			andar(FRENTE, POTENCIA);
+		}
+		else if(andando == 1) {
+			if((sensores.toque_dir == true && sensores.toque_esq == true) || (sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9)) {
+				girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
+				andar(FRENTE, POTENCIA);
+				andando = 2;
+			}
+ 		}
+		else { // andando == 2
+			if(sensores.toque_dir == true && sensores.toque_esq == true) {
+				andarT(FRENTE, POTENCIA, TEMPO_TRAS);
+				cont++;
+				if(cont != COLUNAS) {
+					if(LADO_COMECAR == 0) {
+						girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+						andarT(FRENTE, POTENCIA, TEMPO_ENTRE_COLUNAS);
+						girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+					}
+					else {
+						girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+						andarT(FRENTE, POTENCIA, TEMPO_ENTRE_COLUNAS);
+						girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+					}
+					andando = 0;
+				}
+				else
+					break;
+			}
+		}
 	}
 	
-	//Algoritmo pra sair do modulo
-	//Par = voltando   Impar = indo
-	if(colunas % 2 == 0) {
-
+	if(LADO_COMECAR == 0) {
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+		andar(FRENTE, POTENCIA);
+		while(sensores.toque_dir == false || sensores.toque_esq == false);
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+		Wait(200);
+		distanciaParede = sensores.som_esq;
+		andar(FRENTE, POTENCIA);
+		while(sensores.som_esq < distanciaParede + 100)
+		Off(MOTORES);
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 	}
 	else {
-
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+		andar(FRENTE, POTENCIA);
+		while(sensores.toque_dir == false || sensores.toque_esq == false);
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+		Wait(200);
+		distanciaParede = sensores.som_dir;
+		andar(FRENTE, POTENCIA);
+		while(sensores.som_dir < distanciaParede + 100)
+		Off(MOTORES);
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITA);
 	}
+	//robo esta perpendicular aa saida.
+
 }
 
 //Funcao referente ao primeiro estado (nao testei ainda, fiquem a vontade)
