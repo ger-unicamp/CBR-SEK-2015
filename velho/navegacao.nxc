@@ -43,32 +43,31 @@
 #define DIREITA 0
 
 
-#define ANGULO 359								//Fazer medicao
-#define TEMPO_90_DIREITO 900 					//Fazer medicao
-#define TEMPO_90_ESQUERDA 1500					//Fazer medicao
+#define TEMPO_90_DIREITO 1000					//Fazer medicao
+#define TEMPO_90_ESQUERDA 900					//Fazer medicao
 #define TEMPO_135_ESQUERDA 2000
 #define TEMPO_135_DIREITO 1800
+#define TEMPO_180_ESQUERDA 1900 //CHute: fazer medicao
+#define TEMPO_180_DIREITA 2000  //Chute: fazer medicao
 
 // Constantes dos motores
 #define MOTOR_ESQ OUT_A
 #define MOTOR_DIR OUT_B
 #define MOTORES OUT_AB
 
-#define TEMPO_90_DIREITO 1300 					//Fazer medicao
-#define TEMPO_90_ESQUERDA 1800					//Fazer medicao
-
 #define POTENCIA_DIR 50							//Fazer medicao
 #define POTENCIA_ESQ 50							//Fazer medicao
 #define POTENCIA 50								//Fazer medicao
 
 //Constantes do mapa
-#define LARGURA_MAPA 122						//Fazer medicao
-#define LARGURA_ROBO 32							//Fazer medicao
 #define COLUNAS 4 								//Definir na horas (nmero de colunas navegaveis)
-
 #define TEMPO_ENTRADA 2000
 #define TEMPO_TRAS 750
 
+//COnstantes do modulo da caverna
+#define TEMPO_COLUNA 5000
+#define TEMPO_ENTRE_COLUNAS 200
+#define LADO_COMECAR 0
 
 #define MOTOR_ESQ OUT_A
 #define MOTOR_DIR OUT_B
@@ -90,7 +89,7 @@
 	Portas
 	- Motor esquerdo = A
 	- Motor direito = B
-	- Sensor cor = 1
+	- Sensor cor = 4
 	- Sensor US direito = 1
 	- Sensor US esquerdo = 2
 */
@@ -112,29 +111,25 @@ Sensores sensores;
 
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
-	/*
-	if(sentido == FRENTE)
-		OnFwdSync(OUT_AB, potencia, -1.7);
-	else
-		OnRevSync(OUT_AB, potencia, 0);
-	*/
 	if(sentido == FRENTE) {
 		OnFwd(MOTOR_DIR, potencia);
-		OnFwd(MOTOR_ESQ, potencia + 6.1);
-		// 10 muuio bom
+		OnFwd(MOTOR_ESQ, potencia + 9.7);
 	}
 	else {
-		//OnRevReg(OUT_AB, potencia, OUT_REGMODE_SYNC);
 		OnRev(MOTOR_DIR, potencia);
 		OnRev(MOTOR_ESQ, potencia);
 	}
 }
 
 void andarT(int sentido, int potencia, int tempo) {
-	if(sentido == FRENTE)
-		OnFwdSync(MOTORES, potencia, -1);
-	else
-		OnRevSync(MOTORES, potencia, 0);
+	if(sentido == FRENTE) {
+		OnFwd(MOTOR_DIR, potencia);
+		OnFwd(MOTOR_ESQ, potencia + 9.7);
+	}
+	else {
+		OnRev(MOTOR_DIR, potencia);
+		OnRev(MOTOR_ESQ, potencia);
+	}
 
 	Wait(tempo);
 	Off(MOTORES);
@@ -287,14 +282,9 @@ void navegacaoCrateraParede() {
 	andar(FRENTE, POTENCIA);
 	//2 eh uma constante que representa um erro da medida
 	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
-	Wait(2000);
+	Wait(2400);
 
 	Off(MOTORES);
-	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
-	distanciaParede = sensores.som_dir;
-	//70 eh uma constante de margem de erro.
-	// procurar maneira de controlar qual sensor US deve ser consultado dentro do while
-
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 	Wait(500);
 	//Aqui começa a seguir paredes
@@ -326,24 +316,9 @@ void navegacaoCrateraParede() {
 				andar(FRENTE, POTENCIA);
 			}
 		}
-		/* Essa funcao ta comentada porque checarImovel nao funciona direito. Alem disso a correcao de parar um dos
-		   motores e deixar o outro rodando nao funcionou porque a potencia eh baixa. Sugiro que deixem os dois rodando
-		   mas um dos motores com mais potencia do que o outro. */
-		/*else if(checarImovel() == true) {
-			if(sensores.toque_esq == true) {
-				Off(MOTOR_ESQ);
-				OnFwd(MOTOR_DIR, POTENCIA);
-			}
-			else {
-				Off(MOTOR_DIR);
-				OnFwd(MOTOR_ESQ, POTENCIA);
-			}
-		}*/
-		/*Essa parte inverte o sentido da da movimentacao dele, andando no anti horario. O codigo só pode entrar nesse trecho quandi
-	 	  ele encontrar a cratera preta. */
-		else if(sensores.cor > COR_PRETO - 2 && sensores.cor < COR_PRETO + 2) {
-			//girar 180 graus
-			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO); girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
+			girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
+			Wait(200);
 			sentidoHorario = 0;
 		}
 
@@ -352,14 +327,12 @@ void navegacaoCrateraParede() {
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 
 
-	}
-	//girar(DIREITA, POTENCIA);
 }
 
 // Funcao de navegacao na cratera (nao testei ainda, fiquem a vontade.)
 void navegacaoCrateraLivre() {
 
-	int cont, indo = 1;
+	int cont, sentido;
 	//entra no modulo de cratera
 	andar(FRENTE, POTENCIA);
 	//2 eh uma constante que representa um erro da medida
@@ -367,43 +340,42 @@ void navegacaoCrateraLivre() {
 	Wait(TEMPO_ENTRADA);
 	Off(MOTORES);
 	Wait(400);
-	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO); 
+
+	if(LADO_COMECAR == 0)
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO); 
+	else
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA); 
+
 	Wait(400);
 	andar(FRENTE, POTENCIA);
-	while(sensores.toque_dir == false && sensores.toque_esq == false);
-
-	// while(sensores.toque_esq == false);
+	
+	//Esses 2 whiles estao certos. O jeito anterior dava margem a apenas um dos sensores ser ativado e o outro nao.
+	while(sensores.toque_dir == false);
+	while(sensores.toque_esq == false);
+	
 	Off(MOTORES);
 	andarT(TRAS, POTENCIA, TEMPO_TRAS);
-	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
-	//Comeco da navegacao em colunas
-	//Usar arredondamento para o calculo abaixo.
-	iteracoes = LARGURA_MAPA / LARGURA_ROBO;
 
-	Off(MOTORES);
-	andarT(TRAS, POTENCIA, TEMPO_TRAS);
-	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
-
+	if(LADO_COMECAR == 0)
+		girar(ESQUERDA, POTENCIA, TEMPO_180_ESQUERDA);
+	else
+		girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
 	
 	//Comeco da navegacao em colunas
-	/*for(cont = 0; cont < colunas; cont++) {
-		andar(FRENTE, POTENCIA);
-		while(sensores.toque_dir == false && sensores.toque_esq == false);
-		andarT(TRAS, POTENCIA, 1000);
-<<<<<<< HEAD
-		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
-		break;		
+	for(cont = 0; cont < COLUNAS; cont++) {
+		
+		if(LADO_COMECAR == 0) 
+
 	}
-}
+	
+	//Algoritmo pra sair do modulo
+	//Par = voltando   Impar = indo
+	if(colunas % 2 == 0) {
 
-//Modulo Central
-void central()
-{
+	}
+	else {
 
-=======
-		girar(ESQUERDA, POTENCIA);		
-	}*/
-
+	}
 }
 
 //Funcao referente ao primeiro estado (nao testei ainda, fiquem a vontade)
@@ -415,23 +387,24 @@ void moduloCentral()
 	int distanciaInicial;
 
 	//400 eh um numero tempo fixo de locomoca inicial que depende do ambiente, logo deve ser medido
-	andarT(FRENTE, POTENCIA, 400);
+	andarT(FRENTE, POTENCIA, 2000);
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);	
 	andar(FRENTE, POTENCIA);
-	while(sensores.toque_dir != true && sensores.toque_esq != true);
+	while(sensores.toque_dir == false && sensores.toque_esq == false);
 	Off(MOTORES);
-	andarT(TRAS, POTENCIA, 100);
+	andarT(TRAS, POTENCIA, 450);
 	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
 	//Comeco da navegacao em colunas
-	distanciaInicial = sensores.som_esq;
+	/*distanciaInicial = sensores.som_esq;
 	//50 eh uma constante de seguranca para evitar problemas do valor do ultrasom
-	while(sensores.som_esq > distanciaInicial + 50) {
+	while(sensores.som_esq < distanciaInicial + 120) {
 		andar(FRENTE, POTENCIA);
 		if(sensores.toque_dir == true && sensores.toque_esq == true) {
+			Off(MOTORES);
 			andarT(TRAS, POTENCIA, 100);
 			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 		}
-	} 
+	} */
 
 }
 
