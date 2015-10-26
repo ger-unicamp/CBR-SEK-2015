@@ -416,7 +416,7 @@ void navegacaoCrateraLivre() {
 		andar(FRENTE, POTENCIA);
 		while(sensores.som_dir < distanciaParede + 100)
 		Off(MOTORES);
-		girar(DIREITA, POTENCIA, TEMPO_90_DIREITA);
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 	}
 	//robo esta perpendicular aa saida.
 
@@ -457,7 +457,7 @@ void navegacaoLabirinto() {
 	bool dentroDoLabirinto = true;
 	bool paredeDiagonal = false;
 	
-	int tempo_diagonal; //conta quanto tempo ele esta vendo pelo sensor ultrassonico e determina se eh uma parede na diagonal
+	int tempo_diagonal, i; //conta quanto tempo ele esta vendo pelo sensor ultrassonico e determina se eh uma parede na diagonal
 
 	/* Passos a ser repetidos no labirinto: o robo deve seguir o mais proximo das paredes em sentido horario *
 	* Para tanto, ele deve seguir reto ateh encontrar uma parede, e perceber se a distancia do sensor esquerdo diminui 
@@ -478,7 +478,7 @@ void navegacaoLabirinto() {
 			}
 		}
 
-		off(MOTORES);
+		Off(MOTORES);
 		Wait(100);
 
 		/* Primeiro checa se ha um espaco na direita */
