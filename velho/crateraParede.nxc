@@ -1,25 +1,3 @@
-//Codigo Master
-
-//Opcao de estrategia:
-/*Robo A (o que vai entrar em todos os modulos) algoritmo para percorrer todos
-  os modulos:
-  anda distancia fixa pra frente (sair do pequeno modulo onde o robo inicia)
-  
-  vira a esquerda (o lado e arbitrario , entretanto mudando o sentido que o robo
-  vai circular mudaremos as proximas direçoes para virar)
-  
-  acelera ate os 2 sensores de toque serem ativados , entao vire a direita
-  
-  quando o sensor ultrasonico parar de detectar parede "tenta entrar"(verifica 
-  a linha preta no chao ou nao)
-  
-  ao sair do modulo != do central :
-  acelera distancia fixa , retorna distancia fixa de re , vira 180 graus
-  e acha novamente a linha preta (ou seja achou a entrada dnv)
-  
-  volta a percorrer o modulo inicial virando para direita.
-  */
-
 //Definicao dos Estados
 #define MODULOCENTRAL 0		//Quando o robo se encontra no modulo central
 #define NAVEGACAO 1			//Quando se encontra no labirinto ou no buraco
@@ -47,8 +25,9 @@
 #define TEMPO_90_ESQUERDA 900					//Fazer medicao
 #define TEMPO_135_ESQUERDA 2000
 #define TEMPO_135_DIREITO 1800
-#define TEMPO_180_ESQUERDA 1900 //CHute: fazer medicao
-#define TEMPO_180_DIREITA 2000  //Chute: fazer medicao
+#define TEMPO_180_ESQUERDA 1900 				//CHute: fazer medicao
+#define TEMPO_180_DIREITA 2000  				//Chute: fazer medicao
+#define TEMPO_TRAS 950
 
 // Constantes dos motores
 #define MOTOR_ESQ OUT_A
@@ -60,14 +39,14 @@
 #define POTENCIA 50								//Fazer medicao
 
 //Constantes do mapa
-#define COLUNAS 4 								//Definir na horas (nmero de colunas navegaveis)
+#define COLUNAS 1 								//Definir na horas (nmero de colunas navegaveis)
 #define TEMPO_ENTRADA 2000
-#define TEMPO_TRAS 750
 
 //COnstantes do modulo da caverna
 #define TEMPO_COLUNA 5000
-#define TEMPO_ENTRE_COLUNAS 200
+#define TEMPO_ENTRE_COLUNAS 1500
 #define LADO_COMECAR 0
+#define TEMPO_PASSAR_SAIDA 1500
 
 #define MOTOR_ESQ OUT_A
 #define MOTOR_DIR OUT_B
@@ -276,7 +255,7 @@ task atualizaSensores()
 
 // Funcao de navegacao na cratera seguindo paredes (pronta, precisa de testes)
 void navegacaoCrateraParede() {
-
+	int cont = 0;
 	int distanciaParede, sentidoHorario = 1;
 	//Robo vai andar pra frente ate encontrar a linha preta que anuncia a entrada em um modulo.
 	andar(FRENTE, POTENCIA);
@@ -294,15 +273,11 @@ void navegacaoCrateraParede() {
 	distanciaParede = sensores.som_dir;
 	//NumOut(40,50,distanciaParede);
 	while(1) {
-		/* Essa parte ta comentada porque ta dando pau, ele ta pensando que ele chegou na saida do mudulo mas na verdade
-		   ele nao ta na saida. Verifiquem isso. */
-		/*if(sentidoHorario == 1) {
-			if(sensores.som_dir > distanciaParede + 100) {
-				TextOut(0,50,"Entrei:");
-				break;
-			}
+		if(cont=4) {
+			if(sensores.som_dir > distanciaParede + 15)
+	        	break;
 		}
-		else*/ if(sensores.toque_dir == true && sensores.toque_esq == true) {
+		if(sensores.toque_dir == true && sensores.toque_esq == true) {
 			if(sentidoHorario == 1) {
 				andarT(TRAS, POTENCIA, 1000);
 				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
@@ -315,6 +290,7 @@ void navegacaoCrateraParede() {
 				distanciaParede = sensores.som_esq;
 				andar(FRENTE, POTENCIA);
 			}
+			cont ++;
 		}
 		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {} {
 			girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
@@ -334,30 +310,34 @@ void navegacaoCrateraParede() {
 //Funcao referente ao primeiro estado (nao testei ainda, fiquem a vontade)
 void moduloCentral()
 {
-	//entra no modulo de cratera
+	int distanciaParede;
 
-	//INCOMPLETO
-	int distanciaInicial;
+	// O codigo eh referente aa imagem presente nas regras.
 
-	//400 eh um numero tempo fixo de locomoca inicial que depende do ambiente, logo deve ser medido
-	andarT(FRENTE, POTENCIA, 2000);
+	andar(FRENTE, POTENCIA);
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(TEMPO_ENTRADA);
+	Off(MOTORES);
+	Wait(400);
+
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);	
 	andar(FRENTE, POTENCIA);
-	while(sensores.toque_dir == false && sensores.toque_esq == false);
+	while(sensores.toque_dir == false || sensores.toque_esq == false);
 	Off(MOTORES);
-	andarT(TRAS, POTENCIA, 450);
+	andarT(TRAS, POTENCIA, TEMPO_TRAS);
 	girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
-	//Comeco da navegacao em colunas
-	/*distanciaInicial = sensores.som_esq;
-	//50 eh uma constante de seguranca para evitar problemas do valor do ultrasom
-	while(sensores.som_esq < distanciaInicial + 120) {
-		andar(FRENTE, POTENCIA);
-		if(sensores.toque_dir == true && sensores.toque_esq == true) {
-			Off(MOTORES);
-			andarT(TRAS, POTENCIA, 100);
-			girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
-		}
-	} */
+	Wait(500);
+	distanciaParede = sensores.som_dir;
+	andar(FRENTE, POTENCIA);
+	while(sensores.som_dir < distanciaParede + 15);
+	andarT(FRENTE, POTENCIA, TEMPO_PASSAR_SAIDA);
+	Off(MOTORES);
+	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+	andar(FRENTE, POTENCIA);
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(TEMPO_ENTRADA);
+	Off(MOTORES);
+	Wait(400);
 
 }
 
@@ -378,5 +358,5 @@ task main() {
     andar(FRENTE, 80);
     Wait(50);*/
 
-    navegacaoLabirinto();
+    moduloCentral();
 }	
