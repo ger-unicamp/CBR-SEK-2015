@@ -1,68 +1,59 @@
-//Definicao dos Estados
-#define MODULOCENTRAL 0		//Quando o robo se encontra no modulo central
-#define NAVEGACAO 1			//Quando se encontra no labirinto ou no buraco
-#define VOLTA 2				//Voltando para o modulo central
+// CONSTANTES FIXAS
 
-//Definicao de comunicacao
-#define BT_CONN 1			//Canal de comunicacao Bluetooth
-#define INBOX 1				//Caixa de mensagens recebidas
-#define OUTBOX 5			//Caixa de mensagens enviadas
+	//Definicao de comunicacao
+	#define BT_CONN 1			//Canal de comunicacao Bluetooth
+	#define INBOX 1				//Caixa de mensagens recebidas
+	#define OUTBOX 5			//Caixa de mensagens enviadas
 
-//Definicao de Sensores
-#define SENSOR_COR SENSOR_4
+	//Definicao de Sensores
+	#define SENSOR_COR SENSOR_4
 
-//Definicao de cores
-#define COR_PRETO 14 							//Fazer medicao
+	//Constantes dos motores
+	#define MOTOR_ESQ OUT_A
+	#define MOTOR_DIR OUT_B
+	#define MOTORES OUT_AB
 
-//Definicao de navegacao
-#define FRENTE 1
-#define TRAS 0
-#define ESQUERDA 1
-#define DIREITA 0
-
-
-#define TEMPO_90_DIREITO 1000					//Fazer medicao
-#define TEMPO_90_ESQUERDA 900					//Fazer medicao
-#define TEMPO_135_ESQUERDA 2000
-#define TEMPO_135_DIREITO 1800
-#define TEMPO_180_ESQUERDA 1900 				//CHute: fazer medicao
-#define TEMPO_180_DIREITA 2000  				//Chute: fazer medicao
-#define TEMPO_TRAS 950
-
-// Constantes dos motores
-#define MOTOR_ESQ OUT_A
-#define MOTOR_DIR OUT_B
-#define MOTORES OUT_AB
-
-#define POTENCIA_DIR 50							//Fazer medicao
-#define POTENCIA_ESQ 50							//Fazer medicao
-#define POTENCIA 50								//Fazer medicao
-
-//Constantes do mapa
-#define COLUNAS 1 								//Definir na horas (nmero de colunas navegaveis)
-#define TEMPO_ENTRADA 2000
-
-//COnstantes do modulo da caverna
-#define TEMPO_COLUNA 5000
-#define TEMPO_ENTRE_COLUNAS 1500
-#define LADO_COMECAR 0
-#define TEMPO_PASSAR_SAIDA 1500
-
-#define MOTOR_ESQ OUT_A
-#define MOTOR_DIR OUT_B
-#define MOTORES OUT_AB
-
-/* O quanto o sensor ultrassonico pode considerar uma parede como sendo proxima */
-#define LIMIAR_PERTO 10
-#define LIMIAR_LONGE 100
-#define LIMIAR_DIAGONAL 250
+	//Definicao de navegacao
+	#define FRENTE 1
+	#define TRAS 0
+	#define ESQUERDA 1
+	#define DIREITA 0
 
 
-/*
-	TO-DO LIST
-	- Correcao do movimento em linha reta do robo usando os dados do ultrasom
-	- Adicionar çodigo para fazer o robo ficar reto quando apenas um sensor de toque estiver ativado.
-*/
+// CONSTANTES VARIÁVEIS
+
+	//Definicao de cores
+	#define COR_PRETO 14
+	
+	//Constates dos motores
+	#define CORREC_POTENCIA_DIR 0
+	#define CORREC_POTENCIA_ESQ 9.7
+	#define POTENCIA 50
+
+	//Constantes de giro
+	#define TEMPO_90_DIREITO 1000
+	#define TEMPO_90_ESQUERDA 900
+	#define TEMPO_135_ESQUERDA 2000
+	#define TEMPO_135_DIREITO 1800
+	#define TEMPO_180_ESQUERDA 1900
+	#define TEMPO_180_DIREITA 2000 
+
+	//Constante de movimentaao
+	#define TEMPO_ENTRADA 2000
+	#define TEMPO_TRAS 950
+	#define TEMPO_ESPERAR_PAREDE 2500
+	#define TEMPO_PASSAR_SAIDA 1500
+
+	//Constantes do mapa
+	#define COLUNAS 1
+	#define LADO_COMECAR 0 
+
+	/* O quanto o sensor ultrassonico pode considerar uma parede como sendo proxima */
+	#define LIMIAR_PERTO 10
+	#define LIMIAR_LONGE 100
+	#define LIMIAR_DIAGONAL 250
+
+// FIM
 
 /* 
 	Portas
@@ -84,34 +75,34 @@ struct Sensores {
 };
 
 //Variaveis globais
-int estado;					//Estado da maquina de estados
 Sensores sensores;
 
 
 //Move o robo em linha reta para frente ou para tras.
 void andar(int sentido, int potencia) {
 	if(sentido == FRENTE) {
-		OnFwd(MOTOR_DIR, potencia);
-		OnFwd(MOTOR_ESQ, potencia + 9.7);
+		OnFwd(MOTOR_DIR, potencia + CORREC_POTENCIA_DIR);
+		OnFwd(MOTOR_ESQ, potencia + CORREC_POTENCIA_ESQ);
 	}
 	else {
-		OnRev(MOTOR_DIR, potencia);
-		OnRev(MOTOR_ESQ, potencia);
+		OnRev(MOTOR_DIR, potencia + CORREC_POTENCIA_DIR);
+		OnRev(MOTOR_ESQ, potencia + CORREC_POTENCIA_ESQ);
 	}
 }
 
 void andarT(int sentido, int potencia, int tempo) {
 	if(sentido == FRENTE) {
-		OnFwd(MOTOR_DIR, potencia);
-		OnFwd(MOTOR_ESQ, potencia + 9.7);
+		OnFwd(MOTOR_DIR, potencia + CORREC_POTENCIA_DIR);
+		OnFwd(MOTOR_ESQ, potencia + CORREC_POTENCIA_ESQ);
 	}
 	else {
-		OnRev(MOTOR_DIR, potencia);
-		OnRev(MOTOR_ESQ, potencia);
+		OnRev(MOTOR_DIR, potencia + CORREC_POTENCIA_DIR);
+		OnRev(MOTOR_ESQ, potencia + CORREC_POTENCIA_ESQ);
 	}
 
 	Wait(tempo);
 	Off(MOTORES);
+	Wait(50); // Tempo para os motores pararem completamente
 }
 
 //Gira o robo em 90 graus. 
@@ -128,9 +119,8 @@ void girar(int sentido, int potencia, int tempo) {
 	}
 
 	Off(MOTORES);
+	Wait(50); // Tempo para os motores pararem completamente
 }
-
-
 
 //Definir comunicao bluetooth
 sub BTCheck(int conn)
@@ -257,19 +247,13 @@ task atualizaSensores()
 void navegacaoCrateraParede() {
 	int cont = 0;
 	int distanciaParede, sentidoHorario = 1;
-	//Robo vai andar pra frente ate encontrar a linha preta que anuncia a entrada em um modulo.
-	andar(FRENTE, POTENCIA);
-	//2 eh uma constante que representa um erro da medida
-	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
-	Wait(2400);
-
-	Off(MOTORES);
+	
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 	Wait(500);
 	//Aqui começa a seguir paredes
 
 	andar(FRENTE, POTENCIA);
-	Wait(2500); //Para comecar o algoritmo apenas quando o robo passar completamente a abertura de entrada/saida
+	Wait(TEMPO_ESPERAR_PAREDE); //Para comecar o algoritmo apenas quando o robo passar completamente a abertura de entrada/saida
 	distanciaParede = sensores.som_dir;
 	//NumOut(40,50,distanciaParede);
 	while(1) {
@@ -290,9 +274,9 @@ void navegacaoCrateraParede() {
 				distanciaParede = sensores.som_esq;
 				andar(FRENTE, POTENCIA);
 			}
-			cont ++;
+			cont++;
 		}
-		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {} {
+		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
 			girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
 			Wait(200);
 			sentidoHorario = 0;
@@ -302,12 +286,8 @@ void navegacaoCrateraParede() {
 	Off(MOTORES);
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 
-
 }
 
-
-
-//Funcao referente ao primeiro estado (nao testei ainda, fiquem a vontade)
 void moduloCentral()
 {
 	int distanciaParede;
@@ -341,8 +321,6 @@ void moduloCentral()
 
 }
 
-
-
 task main() {
 
 	estado = 0;
@@ -351,12 +329,6 @@ task main() {
 	sensores.toque_dir = false;
 	sensores.toque_esq = false;
 
-	
-    /*girar(DIREITA, 60);
-    Off(OUT_AB);
-    Wait(1000);
-    andar(FRENTE, 80);
-    Wait(50);*/
-
     moduloCentral();
+    navegacaoCrateraParede();
 }	
