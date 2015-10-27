@@ -321,6 +321,19 @@ void moduloCentral()
 
 }
 
+void deixarCarga() {
+	//sai do modulo da caverna ou labirinto e deixa os bonecos no modulo central
+	andar(FRENTE, POTENCIA);
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(TEMPO_ENTRADA);
+	Off(MOTORES);
+	Wait(400);
+	//volta para o modulo da caverna ou labirinto e para (pode ser retirado e recomecar o codigo)
+	andar(TRAS, POTENCIA);
+	while(sensores.cor < COR_PRETO - 9 || sensores.cor > COR_PRETO + 9);
+	Wait(TEMPO_ENTRADA);
+}
+
 task main() {
 
 	estado = 0;
@@ -331,4 +344,5 @@ task main() {
 
     moduloCentral();
     navegacaoCrateraParede();
+    deixarCarga();
 }	

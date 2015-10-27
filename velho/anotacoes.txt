@@ -1,3 +1,11 @@
+/*
+TO-DO LIST:
+ 
+	- Terminar o código do labirinto.
+	- Adaptar o código do crateraParede para começar no outro sentido.
+	- Fazer código universal para deixar os bonecos no modulo central.
+*/
+
 //Observações sobre a linguagem
 /*
 	- Aparentemente #define QUALQUER_COISA SENSOR_1 define QUALQUER_COISA como um alias
