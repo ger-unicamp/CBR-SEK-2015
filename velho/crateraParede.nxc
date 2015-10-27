@@ -245,44 +245,105 @@ task atualizaSensores()
 
 // Funcao de navegacao na cratera seguindo paredes (pronta, precisa de testes)
 void navegacaoCrateraParede() {
-	int cont = 0;
-	int distanciaParede, sentidoHorario = 1;
+	int distanciaParede, sentidoAntiHorario;
 	
-	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+	if(LADO_COMECAR == 0) {
+		girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+		sentidoAntiHorario = 1;
+	}
+	else {
+		girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+		sentidoAntiHorario = 0;
+	}
+	
 	Wait(500);
+	
 	//Aqui começa a seguir paredes
-
 	andar(FRENTE, POTENCIA);
 	Wait(TEMPO_ESPERAR_PAREDE); //Para comecar o algoritmo apenas quando o robo passar completamente a abertura de entrada/saida
-	distanciaParede = sensores.som_dir;
+	
+	if(LADO_COMECAR == 0)
+		distanciaParede = sensores.som_dir;
+	else
+		distanciaParede = sensores.som_esq;
+	
 	//NumOut(40,50,distanciaParede);
-	while(1) {
-		if(cont=4) {
-			if(sensores.som_dir > distanciaParede + 15)
-	        	break;
-		}
-		if(sensores.toque_dir == true && sensores.toque_esq == true) {
-			if(sentidoHorario == 1) {
-				andarT(TRAS, POTENCIA, 1000);
-				girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
-				distanciaParede = sensores.som_dir;
-				andar(FRENTE, POTENCIA);
+	
+	if(LADO_COMECAR == 0) {
+		//Comeca a seguir paredes no sentido anti horario
+		while(1) {
+			if(sentidoAntiHorario == 1) {
+				if(sensores.som_dir > distanciaParede + 50)
+					break;
 			}
-			else {
-				andarT(TRAS, POTENCIA, 1000);
-				girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
-				distanciaParede = sensores.som_esq;
-				andar(FRENTE, POTENCIA);
+			else if(sensores.toque_dir == true && sensores.toque_esq == true) {
+				if(sentidoAntiHorario == 1) {
+					andarT(TRAS, POTENCIA, TEMPO_TRAS);
+					girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+					Wait(400);
+					distanciaParede = sensores.som_dir;
+					andar(FRENTE, POTENCIA);
+				}
+				else {
+					andarT(TRAS, POTENCIA, TEMPO_TRAS);
+					girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+					andar(FRENTE, POTENCIA);
+				}
 			}
-			cont++;
-		}
-		else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
-			girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
-			Wait(200);
-			sentidoHorario = 0;
-		}
+			else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
+				if(sentidoAntiHorario == 1)
+					girar(ESQUERDA, POTENCIA, TEMPO_180_ESQUERDA);
+				else
+					girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
 
+				Wait(200);
+				if(sentidoAntiHorario == 0)
+					sentidoAntiHorario = 1;
+				else
+					sentidoAntiHorario = 0;
+			
+				andar(FRENTE, POTENCIA);
+			}
+		}
 	}
+	else {
+		// Comeca a seguir paredes no sentido horario
+		while(1) {
+			if(sentidoAntiHorario == 0) {
+				if(sensores.som_esq > distanciaParede + 50)
+					break;
+			}
+			if(sensores.toque_dir == true && sensores.toque_esq == true) {
+				if(sentidoAntiHorario == 1) {
+					andarT(TRAS, POTENCIA, TEMPO_TRAS);
+					girar(ESQUERDA, POTENCIA, TEMPO_90_ESQUERDA);
+					andar(FRENTE, POTENCIA);
+				}
+				else {
+					andarT(TRAS, POTENCIA, TEMPO_TRAS);
+					girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
+					Wait(400);
+					distanciaParede = sensores.som_esq;
+					andar(FRENTE, POTENCIA);
+				}
+			}
+			else if(sensores.cor > COR_PRETO - 9 && sensores.cor < COR_PRETO + 9) {
+				if(sentidoAntiHorario == 1)
+					girar(ESQUERDA, POTENCIA, TEMPO_180_ESQUERDA);
+				else
+					girar(DIREITA, POTENCIA, TEMPO_180_DIREITA);
+
+				Wait(200);
+				if(sentidoAntiHorario == 0)
+					sentidoAntiHorario = 1;
+				else
+					sentidoAntiHorario = 0;
+			
+				andar(FRENTE, POTENCIA);
+			}
+		}	
+	}
+
 	Off(MOTORES);
 	girar(DIREITA, POTENCIA, TEMPO_90_DIREITO);
 
