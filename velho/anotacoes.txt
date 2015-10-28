@@ -15,36 +15,36 @@ TO-DO LIST:
 */
 
 //Funcoes relacionadas ao motor
-OnFwd(OUT_PORTADOMOTOR, porcentagemDaVelocidade) //Move frente
-OnRev(OUT_PORTADOMOTOR, porcentagemDaVelocidade) //Move tras
-Off(OUT_PORTADOMOTOR) //Para os motores bruscamente (usa os freios)
-Float(OUT_PORTADOMOTOR) //Para os motores gentilmente (corta energia)
-OnFwdReg(OUT_PORTADOMOTOR, porcentagemDaVelocidade, REGULAGEMDOMOTOR) //Regulagens possíveis: OUT_REGMODE_IDLE
-OnRevReg(OUT_PORTADOMOTOR, porcentagemDaVelocidade, REGULAGEMDOMOTOR) //OUT_REGMODE_SPEED OUT_REGMODE_SYNC
-OnFwdSync(OUT_PORTADOMOTOR, porcentagemDaVelocidade, turnpct)
-OnRevSync(OUT_PORTADOMOTOR, porcentagemDaVelocidade, turnpct)
-RotateMotor(OUT_PORTADOMOTOR, porcentagemDaVelocidade, angulo) //Angulo varia de -360 a 360
-RotateMotor(OUT_PORTADOMOTOR, porcentagemDaVelocidade, angulo, turnpct, true) //Rotaciona motores em sincronia
+OnFwd(OUT_PORTADOMOTOR, porcentagemDaVelocidade); //Move frente
+OnRev(OUT_PORTADOMOTOR, porcentagemDaVelocidade); //Move tras
+Off(OUT_PORTADOMOTOR); //Para os motores bruscamente (usa os freios)
+Float(OUT_PORTADOMOTOR); //Para os motores gentilmente (corta energia)
+OnFwdReg(OUT_PORTADOMOTOR, porcentagemDaVelocidade, REGULAGEMDOMOTOR);//Regulagens possíveis: OUT_REGMODE_IDLE
+OnRevReg(OUT_PORTADOMOTOR, porcentagemDaVelocidade, REGULAGEMDOMOTOR); //OUT_REGMODE_SPEED OUT_REGMODE_SYNC
+OnFwdSync(OUT_PORTADOMOTOR, porcentagemDaVelocidade, turnpct);
+OnRevSync(OUT_PORTADOMOTOR, porcentagemDaVelocidade, turnpct);
+RotateMotor(OUT_PORTADOMOTOR, porcentagemDaVelocidade, angulo); //Angulo varia de -360 a 360
+RotateMotor(OUT_PORTADOMOTOR, porcentagemDaVelocidade, angulo, turnpct, true); //Rotaciona motores em sincronia
 
 //Funcoes relacionadas a sensores
-SetSensorType(IN_PORTADOSENSOR, SENSOR_TYPE_TIPO) //Seta o tipo do sensor (SENSOR_TYPE_TOUCH, SENSOR_TYPE_LIGHT_ACTIVE, SENSOR_TYPE_LOWSPEED_9V)
-SetSensorMode(IN_PORTADOSENSOR, SENSOR_MODE_TIPO) //Seta o modo de operação do sensor (SENSOR_MODE_RAW, SENSOR_MODE_BOOL, SENSOR_MODE_PERCENT)
-SetSensor(IN_PORTADOSENSOR, SENSOR_TIPODOSENSOR) //Seta o tipo e o modo do sensor
-SetSensorLowspeed(IN_PORTADOSENSOR) //Usado para setar o sensor ultrassonico
-Sensor(IN_PORTADOSENSOR) //Usado para coletar o valor do sensor de cor
-SensorUS(IN_PORTADOSENSOR) //Usado para coletar o valor do sendor ultrassonico
+SetSensorType(IN_PORTADOSENSOR, SENSOR_TYPE_TIPO); //Seta o tipo do sensor (SENSOR_TYPE_TOUCH, SENSOR_TYPE_LIGHT_ACTIVE, SENSOR_TYPE_LOWSPEED_9V)
+SetSensorMode(IN_PORTADOSENSOR, SENSOR_MODE_TIPO); //Seta o modo de operação do sensor (SENSOR_MODE_RAW, SENSOR_MODE_BOOL, SENSOR_MODE_PERCENT)
+SetSensor(IN_PORTADOSENSOR, SENSOR_TIPODOSENSOR); //Seta o tipo e o modo do sensor
+SetSensorLowspeed(IN_PORTADOSENSOR); //Usado para setar o sensor ultrassonico
+Sensor(IN_PORTADOSENSOR); //Usado para coletar o valor do sensor de cor
+SensorUS(IN_PORTADOSENSOR); //Usado para coletar o valor do sendor ultrassonico
 
 //Funcoes de programacao parelela
-Precedes(task1, task2, ...) //Coloca tasks na fila de execução 
-Acquire(mutex) //Código escrito entre essas duas funções assegura total controle de uma 
-Release(mutex) //task sobre as demais (conferir se isso tá certo)
+Precedes(task1, task2, ...); //Coloca tasks na fila de execução 
+Acquire(mutex); //Código escrito entre essas duas funções assegura total controle de uma 
+Release(mutex);//task sobre as demais (conferir se isso tá certo)
 
 //Funcoes relacionadas a comunicação bluetooth
 
 //Funcoes extras
-Wait(tempoEmMiliSegundos)
-Random(rangeDoNumeroRandomicoComecandoEm0)
+Wait(tempoEmMiliSegundos);
+Random(rangeDoNumeroRandomicoComecandoEm0);
 
 //Estruturas diferentes
 repeat(numeroDeVezes) {}
-until()
+until();
